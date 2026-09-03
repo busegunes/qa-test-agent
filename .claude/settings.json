@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git reset:*)",
+      "Bash(git rebase:*)",
+      "Bash(git merge:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git stash:*)",
+      "Bash(git clean:*)",
+      "Bash(git branch:*)",
+      "Bash(git tag:*)",
+      "Bash(git remote:*)",
+      "Bash(git apply:*)",
+      "Bash(git am:*)",
+      "Write(.cache/**)",
+      "Edit(.cache/**)",
+      "Write(project-state/**)",
+      "Edit(project-state/**)",
+      "Write(exports/**)",
+      "Edit(exports/**)",
+      "Write(test-cases/index.md)",
+      "Edit(test-cases/index.md)",
+      "Write(test-runs/HISTORY.md)",
+      "Edit(test-runs/HISTORY.md)",
+      "Write(test-runs/runs.jsonl)",
+      "Edit(test-runs/runs.jsonl)"
+    ],
+    "allow": [
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git diff:*)",
+      "Bash(git grep:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git for-each-ref:*)",
+      "Bash(git cat-file:*)",
+      "Bash(git status:*)",
+      "Bash(npm run sync:*)",
+      "Bash(npm run index:*)",
+      "Bash(npm run check:*)",
+      "Bash(npm run export:*)",
+      "Bash(npm run refresh:*)",
+      "Bash(npm run log:run:*)"
+    ]
+  }
+}

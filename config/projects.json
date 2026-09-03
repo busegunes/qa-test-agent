@@ -1,0 +1,66 @@
+{
+  "_readme": [
+    "Fill in the 'repo' and 'defaultBranch' fields for each project before running 'npm run sync'.",
+    "'repo' accepts any git URL: https://github.com/<owner>/<name>.git or git@github.com:<owner>/<name>.git",
+    "Projects whose 'repo' is still the placeholder value are skipped by the sync script.",
+    "'dependsOn' drives cross-project regression analysis - it lists projects this one consumes or reacts to.",
+    "'codeMap' is optional but strongly recommended: it tells the agent where to look inside the source repo."
+  ],
+  "cacheDir": ".cache/repos",
+  "historyDepth": 40,
+  "hotspotWindowDays": 30,
+  "projects": [
+    {
+      "key": "rms",
+      "name": "RMS",
+      "longName": "Return Management System",
+      "description": "Manages return and exchange processes for orders coming from integrated e-commerce stores (Shopify, Custom). Buyer-facing Return Portal and seller-facing Return Panel.",
+      "repo": "REPLACE_ME_git_url",
+      "defaultBranch": "main",
+      "knowledgePath": "knowledge/rms",
+      "testCasePath": "test-cases/rms",
+      "statePath": "project-state/rms",
+      "idPrefix": "RMS",
+      "dependsOn": ["oms", "wms"],
+      "codeMap": {
+        "_hint": "Optional. Map logical areas to directories in the source repo so the agent can navigate quickly.",
+        "return-portal": "",
+        "return-panel": "",
+        "cargo-integration": "",
+        "shopify-integration": ""
+      }
+    },
+    {
+      "key": "oms",
+      "name": "OMS",
+      "longName": "Order Management System",
+      "description": "Not documented yet. Fill in knowledge/oms/system-overview.md before generating OMS test cases.",
+      "repo": "REPLACE_ME_git_url",
+      "defaultBranch": "main",
+      "knowledgePath": "knowledge/oms",
+      "testCasePath": "test-cases/oms",
+      "statePath": "project-state/oms",
+      "idPrefix": "OMS",
+      "dependsOn": ["wms"],
+      "codeMap": {
+        "_hint": "Optional. Map logical areas to directories in the source repo so the agent can navigate quickly."
+      }
+    },
+    {
+      "key": "wms",
+      "name": "WMS",
+      "longName": "Warehouse Management System",
+      "description": "Not documented yet. Fill in knowledge/wms/system-overview.md before generating WMS test cases.",
+      "repo": "REPLACE_ME_git_url",
+      "defaultBranch": "main",
+      "knowledgePath": "knowledge/wms",
+      "testCasePath": "test-cases/wms",
+      "statePath": "project-state/wms",
+      "idPrefix": "WMS",
+      "dependsOn": [],
+      "codeMap": {
+        "_hint": "Optional. Map logical areas to directories in the source repo so the agent can navigate quickly."
+      }
+    }
+  ]
+}
