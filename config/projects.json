@@ -4,6 +4,7 @@
     "Fill in 'url' and 'defaultBranch' for each repo before running 'npm run sync'.",
     "'url' accepts any git URL: https://github.com/<owner>/<name>.git or git@github.com:<owner>/<name>.git",
     "Repos whose 'url' is still the placeholder value are skipped by the sync script.",
+    "Optional per-repo: set compareBranch (e.g. main) to be warned about commits that exist there but not on defaultBranch.",
     "Mirrors are cloned to .cache/repos/<project key>/<repo name>.git and are read-only.",
     "'dependsOn' drives cross-project regression analysis - it lists projects this one consumes or reacts to.",
     "'codeMap' is optional but strongly recommended: it tells the agent where to look inside the repo."
@@ -21,12 +22,16 @@
       "testCasePath": "test-cases/rms",
       "statePath": "project-state/rms",
       "idPrefix": "RMS",
-      "dependsOn": ["oms", "wms"],
+      "dependsOn": [
+        "oms",
+        "wms"
+      ],
       "repos": [
         {
           "name": "app",
           "url": "https://github.com/Navlungo/returns-app.git",
           "defaultBranch": "develop",
+          "compareBranch": "main",
           "description": "NestJS backend and Next.js seller Return Panel. Owns the return lifecycle, return policy, cargo and shipping, Shopify store connection, wallet, analytics and the WMS integration.",
           "codeMap": {
             "_hint": "Verified against develop on 2026-09-03. Clean architecture: use cases under src/core/application/use-cases, Next.js frontend under src/app.",
@@ -56,6 +61,7 @@
           "name": "portal",
           "url": "https://github.com/Navlungo/return-app-portal.git",
           "defaultBranch": "develop",
+          "compareBranch": "main",
           "description": "Buyer-facing Return Portal. Vite/React client plus a small Node server that also supports embedded mode.",
           "codeMap": {
             "_hint": "Verified against develop on 2026-09-03. Vite/React client under client/, Node server under server/.",
@@ -82,7 +88,9 @@
       "testCasePath": "test-cases/oms",
       "statePath": "project-state/oms",
       "idPrefix": "OMS",
-      "dependsOn": ["wms"],
+      "dependsOn": [
+        "wms"
+      ],
       "repos": [
         {
           "name": "main",

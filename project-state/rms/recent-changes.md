@@ -4,7 +4,7 @@
 
 Manages return and exchange processes for orders coming from integrated e-commerce stores (Shopify, Custom). Split across two repositories: the app hosts the backend and the seller Return Panel, the portal hosts the buyer-facing Return Portal.
 
-**Synced at:** 2026-09-03T13:59:57.484Z
+**Synced at:** 2026-09-03T14:11:15.722Z
 
 This project spans 2 repositories. A change may touch either or both.
 
@@ -24,6 +24,22 @@ NestJS backend and Next.js seller Return Panel. Owns the return lifecycle, retur
 - **HEAD:** `4463d978` — Merge pull request #1398 from Navlungo/TECH-19543/exchange-line-items-to-shopify-dev
 - **HEAD date:** 2026-09-01T15:37:10+03:00
 - **Mirror:** `.cache/repos/rms/app.git`
+
+### Not Yet Merged from `main`
+
+**7 commit(s) are on `main` but not on `develop`.** Hotfixes land on `main` and are auto-PRed back; when that PR hits a conflict it stalls, so these fixes are live in production but missing from the branch under test.
+
+Treat anything below as a known gap between production and what you are testing.
+
+| Commit | Date | Author | Subject |
+| --- | --- | --- | --- |
+| `786546f9` | 2026-09-03 | Gülin Dasdan | fix(shipping): specify types for price and rate requests in Sendcloud and ShipStation adapters |
+| `6785d0e3` | 2026-09-03 | Gülin Dasdan | ne |
+| `c9fa4404` | 2026-09-03 | Gülin Dasdan | fix(logging): enhance logging details in return creation and event dispatching for better traceability |
+| `4ba25ff1` | 2026-09-03 | Gülin Dasdan | fix(logging): enhance logging details in webhook controllers and handlers for better traceability |
+| `77267398` | 2026-09-02 | Gülin Dasdan | fix(logging): improve log messages for clarity and consistency across return use cases |
+| `15cdf249` | 2026-09-02 | Gülin Dasdan | feat(logging): integrate ILoggerService for enhanced logging across return use cases |
+| `aae83e03` | 2026-09-02 | Nihat Cihanoğlu | feat(fonts): load google font options via stylesheet instead of next/font |
 
 ### Active Branches
 
@@ -385,6 +401,10 @@ Buyer-facing Return Portal. Vite/React client plus a small Node server that also
 - **HEAD:** `544639a` — Merge pull request #221 from Navlungo/feature/TECH-19372
 - **HEAD date:** 2026-09-01T15:05:00+03:00
 - **Mirror:** `.cache/repos/rms/portal.git`
+
+### Not Yet Merged from `main`
+
+`develop` is up to date with `main`.
 
 ### Active Branches
 

@@ -200,7 +200,7 @@ From the **Known Unknowns** sections you already wrote. Full lists are in
 | # | Question | Why it matters |
 | --- | --- | --- |
 | D1 | ~~What does a ticket ID look like?~~ **Answered from branch names:** `TECH-19543`. All examples updated. | — |
-| D2 | Hotfixes go to `main` and are not back-merged — `main` currently has 14 commits `develop` does not, including shipping adapter and logging fixes. **Should the agent also read `main` for RMS?** | Right now it reads `develop` only, so it cannot see anything that went straight to production as a hotfix. This is the most consequential open question in this section. |
+| D2 | ~~Should the agent also read `main`?~~ **Answered and automated.** Hotfixes are auto-PRed from `main` back to `develop`, so the two are normally in sync; conflicts stall the PR and create drift. `npm run sync` now detects this and reports it in `SUMMARY.md` and a **Not Yet Merged** section. Currently 7 commits are stuck outside `develop`, including a Sendcloud/ShipStation shipping adapter fix. | — |
 | D3 | Does anyone review test cases before they are used? | Documents carry `status: draft / reviewed / approved / superseded`. If nobody reviews, the agent should write `approved` directly instead of leaving everything in `draft`. |
 | D4 | Which environment do you normally test in? | Becomes the default in preconditions, so you stop having to correct it. |
 | D5 | Do you ever need test cases in Turkish — for example to paste into a ticket for someone else? | Everything is English right now; the agent can produce a Turkish version on request. |

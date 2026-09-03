@@ -143,6 +143,14 @@ This is the main loop. Follow it in order.
 1. Read `project-state/SUMMARY.md` to see how fresh each project's snapshot is.
    If the relevant project was last synced more than a day ago, or the ticket
    mentions a commit you cannot find, run `npm run sync -- <project>` first.
+
+   Check the **Unmerged** column. RMS hotfixes land on `main` and are auto-PRed
+   back to `develop`; when that PR hits a conflict it stalls, leaving fixes live
+   in production but absent from the branch under test. If the column shows
+   drift, open the **Not Yet Merged** section of that project's
+   `recent-changes.md`. When one of those commits touches the area you are
+   testing, say so in the Change Context table — the tester needs to know the
+   environment may not match the branch.
 2. Read `test-cases/index.md` — for the next free test case ID, and to find
    existing documents that already cover this area.
 3. Read `test-runs/HISTORY.md` if the area has been tested before. Recent

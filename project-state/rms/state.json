@@ -2,7 +2,7 @@
   "project": "rms",
   "name": "RMS",
   "description": "Manages return and exchange processes for orders coming from integrated e-commerce stores (Shopify, Custom). Split across two repositories: the app hosts the backend and the seller Return Panel, the portal hosts the buyer-facing Return Portal.",
-  "syncedAt": "2026-09-03T13:59:57.484Z",
+  "syncedAt": "2026-09-03T14:11:15.722Z",
   "hotspotWindowDays": 30,
   "repos": [
     {
@@ -96,6 +96,54 @@
           "lastCommitAuthor": "Ozan Emre SAYILIR"
         }
       ],
+      "unmerged": {
+        "branch": "main",
+        "count": 7,
+        "commits": [
+          {
+            "short": "786546f9",
+            "date": "2026-09-03T15:41:40+03:00",
+            "author": "Gülin Dasdan",
+            "subject": "fix(shipping): specify types for price and rate requests in Sendcloud and ShipStation adapters"
+          },
+          {
+            "short": "6785d0e3",
+            "date": "2026-09-03T14:41:29+03:00",
+            "author": "Gülin Dasdan",
+            "subject": "ne"
+          },
+          {
+            "short": "c9fa4404",
+            "date": "2026-09-03T13:37:18+03:00",
+            "author": "Gülin Dasdan",
+            "subject": "fix(logging): enhance logging details in return creation and event dispatching for better traceability"
+          },
+          {
+            "short": "4ba25ff1",
+            "date": "2026-09-03T13:25:19+03:00",
+            "author": "Gülin Dasdan",
+            "subject": "fix(logging): enhance logging details in webhook controllers and handlers for better traceability"
+          },
+          {
+            "short": "77267398",
+            "date": "2026-09-02T17:41:46+03:00",
+            "author": "Gülin Dasdan",
+            "subject": "fix(logging): improve log messages for clarity and consistency across return use cases"
+          },
+          {
+            "short": "15cdf249",
+            "date": "2026-09-02T16:37:25+03:00",
+            "author": "Gülin Dasdan",
+            "subject": "feat(logging): integrate ILoggerService for enhanced logging across return use cases"
+          },
+          {
+            "short": "aae83e03",
+            "date": "2026-09-02T16:02:49+03:00",
+            "author": "Nihat Cihanoğlu",
+            "subject": "feat(fonts): load google font options via stylesheet instead of next/font"
+          }
+        ]
+      },
       "hotspots": [
         {
           "file": "public/exchange-mvp-widget.js",
@@ -893,6 +941,11 @@
           "lastCommitAuthor": "Ozan Emre SAYILIR"
         }
       ],
+      "unmerged": {
+        "branch": "main",
+        "count": 0,
+        "commits": []
+      },
       "hotspots": [
         {
           "file": "client/src/App.tsx",
