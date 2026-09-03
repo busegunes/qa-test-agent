@@ -4,6 +4,6 @@
 
 Not documented yet. Fill in knowledge/wms/system-overview.md before generating WMS test cases.
 
-**Synced at:** 2026-09-03T13:59:59.956Z
+**Synced at:** 2026-09-03T14:43:45.023Z
 
 This project has no configured repository yet. Set a `url` for `wms` in `config/projects.json`, then run `npm run sync`.

@@ -2,7 +2,7 @@
   "project": "rms",
   "name": "RMS",
   "description": "Manages return and exchange processes for orders coming from integrated e-commerce stores (Shopify, Custom). Split across two repositories: the app hosts the backend and the seller Return Panel, the portal hosts the buyer-facing Return Portal.",
-  "syncedAt": "2026-09-03T14:11:15.722Z",
+  "syncedAt": "2026-09-03T14:43:41.832Z",
   "hotspotWindowDays": 30,
   "repos": [
     {
@@ -21,13 +21,13 @@
       },
       "branches": [
         {
-          "name": "main",
-          "lastCommitDate": "2026-09-03T16:16:47+03:00",
+          "name": "hotfix/log-detail-fix",
+          "lastCommitDate": "2026-09-03T17:42:01+03:00",
           "lastCommitAuthor": "Gülin Dasdan"
         },
         {
-          "name": "hotfix/log-detail-fix",
-          "lastCommitDate": "2026-09-03T16:08:32+03:00",
+          "name": "main",
+          "lastCommitDate": "2026-09-03T16:16:47+03:00",
           "lastCommitAuthor": "Gülin Dasdan"
         },
         {

@@ -6,6 +6,8 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | RMS | `app` | `develop` | `4463d978` | 2026-09-01 — Merge pull request #1398 from Navlungo/TECH-19543/exchange-line-items-to-shopify-dev | **7 from `main`** | 2026-09-03 |
 | RMS | `portal` | `develop` | `544639a` | 2026-09-01 — Merge pull request #221 from Navlungo/feature/TECH-19372 | in sync | 2026-09-03 |
+| OMS | `main` | — | — | _not configured_ | — | — |
+| WMS | `main` | — | — | _not configured_ | — | — |
 
 **Branch drift:** rms/app has commits on the comparison branch that are missing from the branch under test. See the "Not Yet Merged" section in that project's `recent-changes.md` — those fixes are live in production but not in what you are testing.
 

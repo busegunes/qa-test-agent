@@ -4,7 +4,7 @@
 
 Manages return and exchange processes for orders coming from integrated e-commerce stores (Shopify, Custom). Split across two repositories: the app hosts the backend and the seller Return Panel, the portal hosts the buyer-facing Return Portal.
 
-**Synced at:** 2026-09-03T14:11:15.722Z
+**Synced at:** 2026-09-03T14:43:41.832Z
 
 This project spans 2 repositories. A change may touch either or both.
 
@@ -45,8 +45,8 @@ Treat anything below as a known gap between production and what you are testing.
 
 | Branch | Last Commit | Author |
 | --- | --- | --- |
-| `main` | 2026-09-03 | Gülin Dasdan |
 | `hotfix/log-detail-fix` | 2026-09-03 | Gülin Dasdan |
+| `main` | 2026-09-03 | Gülin Dasdan |
 | `hotfix/TECH-19477` | 2026-09-02 | Nihat Cihanoğlu |
 | `TECH-19251/exchange-widget-cart-discount` | 2026-09-02 | Sami Renkyorgancı |
 | `feature/TECH-18265-return-reason-category-refactor` | 2026-09-01 | Nihat Cihanoğlu |
