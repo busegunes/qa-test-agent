@@ -1,5 +1,14 @@
 {
   "project": "wms",
-  "configured": false,
-  "syncedAt": "2026-09-03T13:10:16.918Z"
+  "name": "WMS",
+  "description": "Not documented yet. Fill in knowledge/wms/system-overview.md before generating WMS test cases.",
+  "syncedAt": "2026-09-03T13:59:59.956Z",
+  "hotspotWindowDays": 30,
+  "repos": [
+    {
+      "name": "main",
+      "configured": false,
+      "description": ""
+    }
+  ]
 }

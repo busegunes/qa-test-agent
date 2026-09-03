@@ -24,8 +24,8 @@ blocking the agent.
 
 The short version:
 
-1. Open `config/projects.json` and set `repo` and `defaultBranch` for RMS, OMS
-   and WMS.
+1. Open `config/projects.json` and set `url` and `defaultBranch` for each
+   repository. A project can span several — RMS spans two.
 2. Pull the source history:
 
    ```bash
@@ -38,18 +38,18 @@ The short version:
 
 Ask the agent for test cases in plain language, in Turkish or English:
 
-> RMS'te iade sebebi artık item bazında zorunlu oldu. ClickUp CU-1234. Bunun
+> RMS'te iade sebebi artık item bazında zorunlu oldu. ClickUp TECH-19543. Bunun
 > için test senaryosu yaz.
 
 The agent will read the project state, load the relevant knowledge documents,
 inspect the source commit if it needs to, and write
-`test-cases/rms/CU-1234.md`. It reports scope, coverage and open questions in
+`test-cases/rms/TECH-19543.md`. It reports scope, coverage and open questions in
 chat.
 
 Then record what happened when you run them:
 
 ```bash
-npm run log:run -- --ticket CU-1234 --project rms --env staging --tester buse \
+npm run log:run -- --ticket TECH-19543 --project rms --env staging --tester buse \
   --case RMS-TC-001=pass \
   --case RMS-TC-002=fail:"Duplicate error toast shown"
 ```
@@ -80,7 +80,8 @@ open questions, maintained by the agent as it hits blockers.
 | Command | What it does |
 | --- | --- |
 | `npm run sync` | Refresh the read-only mirrors and rewrite `project-state/` |
-| `npm run sync -- rms` | Refresh one project only |
+| `npm run sync -- rms` | Refresh every repository of one project |
+| `npm run sync -- rms/portal` | Refresh a single repository |
 | `npm run index` | Validate every test case document, rebuild `test-cases/index.md` |
 | `npm run check` | Validate only — non-zero exit on error, suitable for CI |
 | `npm run export` | Rebuild `exports/test-cases.csv` |
@@ -108,11 +109,11 @@ Source File
 
 ## Current State
 
-| Project | Knowledge base | Repo configured |
+| Project | Knowledge base | Repositories |
 | --- | --- | --- |
-| RMS | System overview, 2 feature documents, 4 integration documents | Not yet |
-| OMS | Stub | Not yet |
-| WMS | Stub | Not yet |
+| RMS | System overview, 2 feature documents, 4 integration documents | **Connected** — `Navlungo/returns-app` (backend + seller panel) and `Navlungo/return-app-portal` (buyer portal), both on `develop` |
+| OMS | Stub | Not configured |
+| WMS | Stub | Not configured |
 
 Cross-project dependencies are hypotheses, not facts — see
 `knowledge/cross-project/dependency-map.md`. The agent will not write test cases

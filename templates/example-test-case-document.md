@@ -1,6 +1,6 @@
 ---
 project: rms
-ticket: CU-1234
+ticket: TECH-19543
 title: Add an "Other" return reason that requires a free-text comment
 created: 2026-09-03
 author: qa-test-agent
@@ -12,7 +12,7 @@ affects: [rms]
 test_case_ids: [RMS-TC-001, RMS-TC-002, RMS-TC-003, RMS-TC-004, RMS-TC-005, RMS-TC-006, RMS-TC-007]
 ---
 
-# CU-1234 — Add an "Other" return reason that requires a free-text comment
+# TECH-19543 — Add an "Other" return reason that requires a free-text comment
 
 > **This is a worked example**, not a real ticket. It exists to show the expected
 > depth, structure and tone. Copy `templates/test-case-document.md` for the empty

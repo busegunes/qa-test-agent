@@ -1,5 +1,1681 @@
 {
   "project": "rms",
-  "configured": false,
-  "syncedAt": "2026-09-03T13:10:16.916Z"
+  "name": "RMS",
+  "description": "Manages return and exchange processes for orders coming from integrated e-commerce stores (Shopify, Custom). Split across two repositories: the app hosts the backend and the seller Return Panel, the portal hosts the buyer-facing Return Portal.",
+  "syncedAt": "2026-09-03T13:59:57.484Z",
+  "hotspotWindowDays": 30,
+  "repos": [
+    {
+      "name": "app",
+      "configured": true,
+      "description": "NestJS backend and Next.js seller Return Panel. Owns the return lifecycle, return policy, cargo and shipping, Shopify store connection, wallet, analytics and the WMS integration.",
+      "url": "https://github.com/Navlungo/returns-app.git",
+      "branch": "develop",
+      "mirrorDir": ".cache/repos/rms/app.git",
+      "head": {
+        "sha": "4463d97826318e9ca308d3bd36248cef1bb9864b",
+        "short": "4463d978",
+        "date": "2026-09-01T15:37:10+03:00",
+        "author": "Sami Renkyorgancı",
+        "subject": "Merge pull request #1398 from Navlungo/TECH-19543/exchange-line-items-to-shopify-dev"
+      },
+      "branches": [
+        {
+          "name": "main",
+          "lastCommitDate": "2026-09-03T16:16:47+03:00",
+          "lastCommitAuthor": "Gülin Dasdan"
+        },
+        {
+          "name": "hotfix/log-detail-fix",
+          "lastCommitDate": "2026-09-03T16:08:32+03:00",
+          "lastCommitAuthor": "Gülin Dasdan"
+        },
+        {
+          "name": "hotfix/TECH-19477",
+          "lastCommitDate": "2026-09-02T16:02:49+03:00",
+          "lastCommitAuthor": "Nihat Cihanoğlu"
+        },
+        {
+          "name": "TECH-19251/exchange-widget-cart-discount",
+          "lastCommitDate": "2026-09-02T09:11:55+03:00",
+          "lastCommitAuthor": "Sami Renkyorgancı"
+        },
+        {
+          "name": "feature/TECH-18265-return-reason-category-refactor",
+          "lastCommitDate": "2026-09-01T18:01:29+03:00",
+          "lastCommitAuthor": "Nihat Cihanoğlu"
+        },
+        {
+          "name": "develop",
+          "lastCommitDate": "2026-09-01T15:37:10+03:00",
+          "lastCommitAuthor": "Sami Renkyorgancı"
+        },
+        {
+          "name": "TECH-19543/exchange-line-items-to-shopify-dev",
+          "lastCommitDate": "2026-09-01T15:04:29+03:00",
+          "lastCommitAuthor": "SamiRenkyorganci"
+        },
+        {
+          "name": "TECH-19543/exchange-line-items-to-shopify",
+          "lastCommitDate": "2026-09-01T15:02:51+03:00",
+          "lastCommitAuthor": "SamiRenkyorganci"
+        },
+        {
+          "name": "TECH-19557/shopify-exchange-tag-and-note-dev",
+          "lastCommitDate": "2026-09-01T12:07:45+03:00",
+          "lastCommitAuthor": "SamiRenkyorganci"
+        },
+        {
+          "name": "TECH-19557/shopify-exchange-tag-and-note",
+          "lastCommitDate": "2026-09-01T11:59:32+03:00",
+          "lastCommitAuthor": "SamiRenkyorganci"
+        },
+        {
+          "name": "TECH-19116/migration-timestamp-collisions",
+          "lastCommitDate": "2026-08-31T16:59:46+03:00",
+          "lastCommitAuthor": "Sami Renkyorgancı"
+        },
+        {
+          "name": "hotfix/own-deal-currency-null",
+          "lastCommitDate": "2026-08-28T14:47:08+03:00",
+          "lastCommitAuthor": "SamiRenkyorganci"
+        },
+        {
+          "name": "hotfix/pr-review-gulin-approve-removed",
+          "lastCommitDate": "2026-08-28T11:27:27+03:00",
+          "lastCommitAuthor": "Gülin Dasdan"
+        },
+        {
+          "name": "release/TECH-19165/embed-pp",
+          "lastCommitDate": "2026-08-28T09:34:52+03:00",
+          "lastCommitAuthor": "Nihat Cihanoğlu"
+        },
+        {
+          "name": "release/TECH-18846/wms-lambda-cron",
+          "lastCommitDate": "2026-08-27T16:52:49+03:00",
+          "lastCommitAuthor": "Ozan Emre SAYILIR"
+        }
+      ],
+      "hotspots": [
+        {
+          "file": "public/exchange-mvp-widget.js",
+          "changes": 12
+        },
+        {
+          "file": "src/core/application/use-cases/exchange/exchange-session/confirm-exchange-session.ts",
+          "changes": 10
+        },
+        {
+          "file": "src/core/application/use-cases/exchange/exchange-session/exchange-session.helpers.ts",
+          "changes": 8
+        },
+        {
+          "file": "src/core/application/use-cases/webhooks/wallet-payment/__tests__/handle-wallet-payment-webhook.use-case.spec.ts",
+          "changes": 7
+        },
+        {
+          "file": "src/core/application/use-cases/webhooks/wallet-payment/handle-wallet-payment-webhook.use-case.ts",
+          "changes": 7
+        },
+        {
+          "file": "src/core/application/use-cases/return-portal/return-payment-intent/create-return-payment-intent.ts",
+          "changes": 6
+        },
+        {
+          "file": "src/core/application/use-cases/return/create-return/create-return.ts",
+          "changes": 6
+        },
+        {
+          "file": "src/core/application/use-cases/return/orchestrators/return-fulfillment.orchestrator.ts",
+          "changes": 6
+        },
+        {
+          "file": "src/core/application/use-cases/exchange/exchange-session/create-exchange-session.ts",
+          "changes": 5
+        },
+        {
+          "file": "src/core/application/use-cases/exchange/exchange-session/exchange-session.dto.ts",
+          "changes": 5
+        },
+        {
+          "file": "src/core/application/use-cases/exchange/exchange-session/on-return-refunded.handler.ts",
+          "changes": 5
+        },
+        {
+          "file": "src/i18n/dictionaries/en/return-flow.json",
+          "changes": 5
+        },
+        {
+          "file": "src/infrastructure/bootstrap/main.ts",
+          "changes": 5
+        },
+        {
+          "file": ".github/workflows/claude-pr-review.yml",
+          "changes": 4
+        },
+        {
+          "file": "src/core/application/use-cases/analytics/get-most-returned-products/get-most-returned-products.ts",
+          "changes": 4
+        },
+        {
+          "file": "src/core/application/use-cases/analytics/get-return-reasons-summary/get-return-reasons-summary.ts",
+          "changes": 4
+        },
+        {
+          "file": "src/core/application/use-cases/exchange/exchange-session/__test__/confirm-exchange-session.spec.ts",
+          "changes": 4
+        },
+        {
+          "file": "src/core/application/use-cases/exchange/exchange-session/__test__/verify-cart-snapshot.spec.ts",
+          "changes": 4
+        },
+        {
+          "file": "src/core/application/use-cases/exchange/exchange-session/update-exchange-session.ts",
+          "changes": 4
+        },
+        {
+          "file": "src/core/application/use-cases/return/verify-order/verify-order.ts",
+          "changes": 4
+        }
+      ],
+      "commits": [
+        {
+          "sha": "4463d97826318e9ca308d3bd36248cef1bb9864b",
+          "short": "4463d978",
+          "date": "2026-09-01T15:37:10+03:00",
+          "author": "Sami Renkyorgancı",
+          "subject": "Merge pull request #1398 from Navlungo/TECH-19543/exchange-line-items-to-shopify-dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "4297dfed1231bb633d6f7712b75cbf601f34a8b9",
+          "short": "4297dfed",
+          "date": "2026-09-01T15:04:29+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "Merge branch 'TECH-19543/exchange-line-items-to-shopify' into TECH-19543/exchange-line-items-to-shopify-dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "5efbb7e979d537e9144fee454b7aa59a2f48b6bb",
+          "short": "5efbb7e9",
+          "date": "2026-09-01T15:02:51+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "TECH-19543: review fixes — schema safety, log, types, tests",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "A",
+              "path": "src/core/application/use-cases/return/orchestrators/__test__/return-fulfillment-build-exchange-line-items.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/return/orchestrators/return-fulfillment.orchestrator.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/infrastructure/services/shopify-order/__test__/shopify-order-service.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/infrastructure/services/shopify-order/shopify-order.service.ts"
+            }
+          ]
+        },
+        {
+          "sha": "6a2c6fa0e9ed3700aaf5638d8e51a4a65d3318de",
+          "short": "6a2c6fa0",
+          "date": "2026-09-01T14:27:16+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "Merge remote-tracking branch 'origin/develop' into TECH-19543/exchange-line-items-to-shopify-dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "4c4c7e4a45b83afd0ed27fbf96528f6915362500",
+          "short": "4c4c7e4a",
+          "date": "2026-09-01T14:11:33+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "TECH-19543: Shopify Return.exchangeLineItems alanini besleme",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/return/orchestrators/return-fulfillment.orchestrator.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/domain/services/shopify-order/dtos/shopify-return.dto.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/infrastructure/services/shopify-order/__test__/shopify-order-service.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/infrastructure/services/shopify-order/shopify-order.service.ts"
+            }
+          ]
+        },
+        {
+          "sha": "661f5d4ae3ed28a222f4c3ac2f3bbe573af072b5",
+          "short": "661f5d4a",
+          "date": "2026-09-01T14:11:07+03:00",
+          "author": "Sami Renkyorgancı",
+          "subject": "Merge pull request #1397 from Navlungo/TECH-19557/shopify-exchange-tag-and-note-dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "f3d1007363871ebbf4e52b268f954853f9ac3c60",
+          "short": "f3d10073",
+          "date": "2026-09-01T12:07:45+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "Merge branch 'TECH-19557/shopify-exchange-tag-and-note' into TECH-19557/shopify-exchange-tag-and-note-dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "21c2434f02a6c5bdf304f2a8ec444ce51a6eabdd",
+          "short": "21c2434f",
+          "date": "2026-09-01T11:59:32+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "TECH-19557: review fixes — note prefix, tag idempotency, mock format",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/on-return-refunded.handler.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/product-variant/process-shopify-webhook/process-shopify-webhook.use-case.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/domain/services/shopify-exchange/__tests__/exchange-session-note.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/domain/services/shopify-exchange/exchange-session-note.ts"
+            }
+          ]
+        },
+        {
+          "sha": "b0aa6869be87882de6125a71567ddc6dce9b2ffb",
+          "short": "b0aa6869",
+          "date": "2026-09-01T11:11:54+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "Merge remote-tracking branch 'origin/develop' into TECH-19557/shopify-exchange-tag-and-note-dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "eb76262b144c873ae9d30ac839771d45f521053b",
+          "short": "eb76262b",
+          "date": "2026-09-01T10:20:06+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "TECH-19557: exchange draft order note + original order tag",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/on-return-refunded.handler.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/confirm-exchange-session.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/on-return-refunded.handler.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/product-variant/process-shopify-webhook/process-shopify-webhook.use-case.ts"
+            },
+            {
+              "status": "A",
+              "path": "src/core/domain/services/shopify-exchange/__tests__/exchange-session-note.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/domain/services/shopify-exchange/exchange-session-note.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/domain/services/shopify-exchange/shopify-exchange-service.interface.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/domain/services/shopify-order/shopify-order-service.interface.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/infrastructure/services/shopify-exchange/shopify-exchange.service.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/infrastructure/services/shopify-order/shopify-order.service.ts"
+            }
+          ]
+        },
+        {
+          "sha": "6e2d363137e0d45c3c6b27645894a80a669a4f49",
+          "short": "6e2d3631",
+          "date": "2026-08-31T14:16:30Z",
+          "author": "navlungo[bot]",
+          "subject": "Merge pull request #1396 from Navlungo/TECH-19116/migration-timestamp-collisions",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "ad8b8da68b7b31770726be6b5701f2da6646705c",
+          "short": "ad8b8da6",
+          "date": "2026-08-31T17:11:26+03:00",
+          "author": "Sami Renkyorgancı",
+          "subject": "Merge pull request #1368 from Navlungo/TECH-19116/migration-timestamp-collisions",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "6b258c8b08cd162a3211f1e4d87a3363182498dc",
+          "short": "6b258c8b",
+          "date": "2026-08-31T16:59:46+03:00",
+          "author": "Sami Renkyorgancı",
+          "subject": "Merge branch 'main' into TECH-19116/migration-timestamp-collisions",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "f91014041faa8779420785e5c79e5bd980c89e3c",
+          "short": "f9101404",
+          "date": "2026-08-31T10:15:33+03:00",
+          "author": "Sami Renkyorgancı",
+          "subject": "Merge pull request #1395 from Navlungo/TECH-19251/exchange-widget-cart-discount",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "565d50918e92ca975b183c300988252bcf4a3b5f",
+          "short": "565d5091",
+          "date": "2026-08-28T16:48:47+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "fix(exchange): review round — v1 fallback, legacy guard, response normalize, widget fallback",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "public/exchange-mvp-widget.js"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/on-return-refunded.handler.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/sum-discount-totals.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/verify-cart-snapshot.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/create-exchange-session.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/exchange-session.helpers.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/get-exchange-session.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/on-return-refunded.handler.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/update-exchange-session.ts"
+            }
+          ]
+        },
+        {
+          "sha": "8c1d72bec44a5d101b814dc37fe8db6cee518481",
+          "short": "8c1d72be",
+          "date": "2026-08-28T16:21:37+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "fix(exchange): line-level indirim draft'a düşmüyor + v1 in-flight + widget cache fallback",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/confirm-exchange-session.spec.ts"
+            },
+            {
+              "status": "A",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/sum-discount-totals.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/verify-cart-snapshot.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/confirm-exchange-session.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/exchange-session.dto.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/exchange-session.helpers.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/on-return-refunded.handler.ts"
+            }
+          ]
+        },
+        {
+          "sha": "2261ff2a5112dd96ccb1381a981f844f3a2baeb5",
+          "short": "2261ff2a",
+          "date": "2026-08-28T15:46:23+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "feat(exchange): ayır cart-level indirimi line-level'dan (Shopify discounted_price)",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "public/exchange-mvp-widget.js"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/confirm-exchange-session.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/create-exchange-session.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/update-exchange-session.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/__test__/verify-cart-snapshot.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/confirm-exchange-session.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/create-exchange-session.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/exchange-session.dto.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/exchange-session.helpers.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/on-return-refunded.handler.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/exchange/exchange-session/update-exchange-session.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/domain/models/exchange/__test__/exchange-session.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/domain/models/exchange/exchange-session.ts"
+            }
+          ]
+        },
+        {
+          "sha": "a9fc9154b2e03bf281e7e10943e86053bb0d8ccc",
+          "short": "a9fc9154",
+          "date": "2026-08-28T15:10:28+03:00",
+          "author": "Sami Renkyorgancı",
+          "subject": "Merge pull request #1394 from Navlungo/hotfix/own-deal-currency-null",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "294ac9296b50b8900ad8cd67460f69bf3bbde342",
+          "short": "294ac929",
+          "date": "2026-08-28T14:47:08+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "fix(shipping): SENDER_PAYS servisleri için currency her zaman baseCurrency döner",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "src/infrastructure/database/repositories/organization-carrier-service.repository.ts"
+            }
+          ]
+        },
+        {
+          "sha": "9dc56bdcebe058f985217c10a1786e856f4bd5bf",
+          "short": "9dc56bdc",
+          "date": "2026-08-28T14:08:00+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "Merge pull request #1393 from Navlungo/hotfix/pr-review-gulin-approve-removed",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "59c7b498a4fa02ef52c9a99d3585d8c0b88aa10d",
+          "short": "59c7b498",
+          "date": "2026-08-28T11:30:31+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "Merge pull request #1391 from Navlungo/hotfix/pr-review-gulin-approve-removed",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "15d623f29f8767f8af24f015b59d41b43534cc97",
+          "short": "15d623f2",
+          "date": "2026-08-28T11:27:27+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "Merge branch 'main' into hotfix/pr-review-gulin-approve-removed",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "a48bcd57c16429689feaa8ef33420b3deb4e6cdd",
+          "short": "a48bcd57",
+          "date": "2026-08-28T10:52:21+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #1388 from Navlungo/release/TECH-19165/embed-pp",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "02665d630e5d0994e7c2957cf913e15f1d53091c",
+          "short": "02665d63",
+          "date": "2026-08-28T09:34:52+03:00",
+          "author": "Nihat Cihanoğlu",
+          "subject": "fix(exchange-widget): hide embed on returns portal pages",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "public/exchange-mvp-widget.js"
+            }
+          ]
+        },
+        {
+          "sha": "5de8cad377b90007e07cf2c7d79e062e9bc20ef2",
+          "short": "5de8cad3",
+          "date": "2026-08-27T19:51:29+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "Merge branch 'main' into release/TECH-19165/embed-pp",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "e56c99eb1c33558d24bfc8858e98cdc5bbda0b4e",
+          "short": "e56c99eb",
+          "date": "2026-08-27T19:50:34+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "chore: update CODEOWNERS and remove auto-approve workflow for back-merges",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": ".github/CODEOWNERS"
+            },
+            {
+              "status": "D",
+              "path": ".github/workflows/auto-approve-backmerge.yml"
+            }
+          ]
+        },
+        {
+          "sha": "ff2dc2ed3316d4821860414f03184bbb6418a925",
+          "short": "ff2dc2ed",
+          "date": "2026-08-27T17:41:33+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "Merge pull request #1389 from Navlungo/release/TECH-18846/wms-lambda-cron",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "ebfe6c18e670e9515592ffe6f6f302f7d4eb5839",
+          "short": "ebfe6c18",
+          "date": "2026-08-27T16:52:49+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "merged rs",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "6b1a732e43201f823673d096648b5d4d60f60de8",
+          "short": "6b1a732e",
+          "date": "2026-08-27T15:54:50+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #1302 from Navlungo/release/TECH-18846/wms-lambda-cron",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "e1d68b3dfac33b7bea56a725e7f0ea634e848164",
+          "short": "e1d68b3d",
+          "date": "2026-08-27T14:26:17+03:00",
+          "author": "OzanEm",
+          "subject": "Merge branch 'main' into release/TECH-19165/embed-pp",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "f77a5efe92f76f71af7a7fe6e6f598eea8c0c8d9",
+          "short": "f77a5efe",
+          "date": "2026-08-27T11:50:31+03:00",
+          "author": "Sami Renkyorgancı",
+          "subject": "Merge pull request #1378 from Navlungo/TECH-19251/exchange-widget-cart-discount",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "2a2ca456043d0dcc5b34e69eff5fc0adefbfa291",
+          "short": "2a2ca456",
+          "date": "2026-08-27T11:03:28+03:00",
+          "author": "OzanEm",
+          "subject": "Merge branch 'main' into release/TECH-18846/wms-lambda-cron",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "9814f1a985b5587b7d2dee1ff3255230f6e87e75",
+          "short": "9814f1a9",
+          "date": "2026-08-27T11:03:08+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #1387 from Navlungo/release/TECH-19165/embed-pp",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "605549ecb1c12bc756f95c73c06c0e3f428af796",
+          "short": "605549ec",
+          "date": "2026-08-27T10:27:00+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "updated text",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "src/i18n/dictionaries/de/return-flow.json"
+            },
+            {
+              "status": "M",
+              "path": "src/i18n/dictionaries/en/return-flow.json"
+            },
+            {
+              "status": "M",
+              "path": "src/i18n/dictionaries/tr/return-flow.json"
+            }
+          ]
+        },
+        {
+          "sha": "1d02cc67e8011caa540c2bd0ddcec684c036a867",
+          "short": "1d02cc67",
+          "date": "2026-08-27T09:33:05+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "Merge pull request #1386 from Navlungo/chore/retrigger-actions-post-incident",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "010224edcce455583d49f8fa9987f8deddc679d3",
+          "short": "010224ed",
+          "date": "2026-08-27T09:29:22+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "chore: retrigger stuck Actions workflows after github incident",
+          "isMerge": false,
+          "files": []
+        },
+        {
+          "sha": "3085a9fe0c9cc9a290ae00558f43df6f515e9d26",
+          "short": "3085a9fe",
+          "date": "2026-08-26T18:26:56+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "Merge pull request #1385 from Navlungo/hotfix/oms-status-fix",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "6e22982a3ee78beb264de15927deaecadffa75fb",
+          "short": "6e22982a",
+          "date": "2026-08-26T18:24:16+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "hotfix(oms-status): implement item decision handling for InProgress status",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/return/apply-oms-status/__tests__/apply-oms-status.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/core/application/use-cases/return/apply-oms-status/apply-oms-status.ts"
+            }
+          ]
+        },
+        {
+          "sha": "3051823ed216f30dad7b347183b38af2e8b293aa",
+          "short": "3051823e",
+          "date": "2026-08-26T17:55:45+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "Merge pull request #1383 from Navlungo/hotfix/oms-status-case-insensitive-schema",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "3dfd6f67c879dd51b9c9ee46cdb1cbffaf2f9762",
+          "short": "3dfd6f67",
+          "date": "2026-08-26T17:37:42+03:00",
+          "author": "SamiRenkyorganci",
+          "subject": "hotfix(oms-status): schema'yi case-insensitive yap (prod camelCase geliyor)",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "src/infrastructure/services/queue/oms-status-worker/__tests__/parse-oms-rms-status-message.spec.ts"
+            },
+            {
+              "status": "M",
+              "path": "src/infrastructure/services/queue/oms-status-worker/oms-status-worker-types.ts"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "portal",
+      "configured": true,
+      "description": "Buyer-facing Return Portal. Vite/React client plus a small Node server that also supports embedded mode.",
+      "url": "https://github.com/Navlungo/return-app-portal.git",
+      "branch": "develop",
+      "mirrorDir": ".cache/repos/rms/portal.git",
+      "head": {
+        "sha": "544639aea7b57c76a6fce112233e2177b95e3c16",
+        "short": "544639a",
+        "date": "2026-09-01T15:05:00+03:00",
+        "author": "nihat-cihanoglu",
+        "subject": "Merge pull request #221 from Navlungo/feature/TECH-19372"
+      },
+      "branches": [
+        {
+          "name": "main",
+          "lastCommitDate": "2026-09-02T09:29:32+03:00",
+          "lastCommitAuthor": "nihat-cihanoglu"
+        },
+        {
+          "name": "develop",
+          "lastCommitDate": "2026-09-01T15:05:00+03:00",
+          "lastCommitAuthor": "nihat-cihanoglu"
+        },
+        {
+          "name": "feature/TECH-19372",
+          "lastCommitDate": "2026-09-01T14:57:59+03:00",
+          "lastCommitAuthor": "Nihat Cihanoğlu"
+        },
+        {
+          "name": "feature/notify-pr-clickup",
+          "lastCommitDate": "2026-08-31T14:50:12+03:00",
+          "lastCommitAuthor": "Gülin Dasdan"
+        },
+        {
+          "name": "feature/TECH-19165/embed-pp-dev",
+          "lastCommitDate": "2026-08-28T10:31:25+03:00",
+          "lastCommitAuthor": "Ozan Emre SAYILIR"
+        },
+        {
+          "name": "release/TECH-19165/embed-pp",
+          "lastCommitDate": "2026-08-28T10:24:28+03:00",
+          "lastCommitAuthor": "Ozan Emre SAYILIR"
+        },
+        {
+          "name": "feature/TECH-18265-return-reason-category-refactor",
+          "lastCommitDate": "2026-08-26T16:28:48+03:00",
+          "lastCommitAuthor": "Nihat Cihanoğlu"
+        },
+        {
+          "name": "feature/TECH-18427",
+          "lastCommitDate": "2026-08-25T09:27:26+03:00",
+          "lastCommitAuthor": "Nihat Cihanoğlu"
+        },
+        {
+          "name": "hotfix/utils",
+          "lastCommitDate": "2026-08-24T17:06:46+03:00",
+          "lastCommitAuthor": "Ozan Emre SAYILIR"
+        },
+        {
+          "name": "hoxtif/utils",
+          "lastCommitDate": "2026-08-24T17:06:46+03:00",
+          "lastCommitAuthor": "Ozan Emre SAYILIR"
+        },
+        {
+          "name": "feature/TECH-19400",
+          "lastCommitDate": "2026-08-20T18:01:25+03:00",
+          "lastCommitAuthor": "Nihat Cihanoğlu"
+        },
+        {
+          "name": "feature/exh-lg",
+          "lastCommitDate": "2026-08-19T14:56:28+03:00",
+          "lastCommitAuthor": "Ozan Emre SAYILIR"
+        },
+        {
+          "name": "feature/TECH-18427-17-08",
+          "lastCommitDate": "2026-08-17T11:00:20+03:00",
+          "lastCommitAuthor": "Nihat Cihanoğlu"
+        },
+        {
+          "name": "feature/TECH-19209/en-path-sp-dev",
+          "lastCommitDate": "2026-08-13T11:30:26+03:00",
+          "lastCommitAuthor": "Ozan Emre SAYILIR"
+        },
+        {
+          "name": "release/TECH-19209/en-path-sp",
+          "lastCommitDate": "2026-08-13T11:09:13+03:00",
+          "lastCommitAuthor": "Ozan Emre SAYILIR"
+        }
+      ],
+      "hotspots": [
+        {
+          "file": "client/src/App.tsx",
+          "changes": 5
+        },
+        {
+          "file": "server/index.js",
+          "changes": 5
+        },
+        {
+          "file": "client/src/pages/apps-returns/sub-components/item-summary/components/refunded-items.tsx",
+          "changes": 4
+        },
+        {
+          "file": "client/src/lib/utils.ts",
+          "changes": 3
+        },
+        {
+          "file": "client/src/pages/apps-returns/sub-components/item-summary/components/item-summary-form.tsx",
+          "changes": 3
+        },
+        {
+          "file": "client/src/pages/apps-returns/sub-components/item-summary/item-summary.tsx",
+          "changes": 3
+        },
+        {
+          "file": "docs/embedded-mode.md",
+          "changes": 3
+        },
+        {
+          "file": "server/index.test.js",
+          "changes": 3
+        },
+        {
+          "file": "server/public/index.html",
+          "changes": 3
+        },
+        {
+          "file": ".gitignore",
+          "changes": 2
+        },
+        {
+          "file": "client/package-lock.json",
+          "changes": 2
+        },
+        {
+          "file": "client/src/App.css",
+          "changes": 2
+        },
+        {
+          "file": "client/src/lib/portal-host.ts",
+          "changes": 2
+        },
+        {
+          "file": "client/src/pages/apps-returns/sub-components/return-cargo-selection/components/cargo-carrier-list.tsx",
+          "changes": 2
+        },
+        {
+          "file": "docker/app.dockerfile",
+          "changes": 2
+        },
+        {
+          "file": "docker/prod.app.dockerfile",
+          "changes": 2
+        },
+        {
+          "file": "ISSUES.md",
+          "changes": 2
+        },
+        {
+          "file": "server/dev-shell.js",
+          "changes": 2
+        },
+        {
+          "file": ".github/workflows/notify-pr.yml",
+          "changes": 1
+        },
+        {
+          "file": "client/index.html",
+          "changes": 1
+        }
+      ],
+      "commits": [
+        {
+          "sha": "544639aea7b57c76a6fce112233e2177b95e3c16",
+          "short": "544639a",
+          "date": "2026-09-01T15:05:00+03:00",
+          "author": "nihat-cihanoglu",
+          "subject": "Merge pull request #221 from Navlungo/feature/TECH-19372",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "08f81ee70573430e43078ad120accfe733e49c36",
+          "short": "08f81ee",
+          "date": "2026-09-01T14:57:59+03:00",
+          "author": "Nihat Cihanoğlu",
+          "subject": "second control removed",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/components/refunded-items.tsx"
+            }
+          ]
+        },
+        {
+          "sha": "efd5ebb13763e8667ae0b26bc772cac38ebf5be7",
+          "short": "efd5ebb",
+          "date": "2026-08-31T12:02:22Z",
+          "author": "navlungo[bot]",
+          "subject": "Merge pull request #220 from Navlungo/feature/notify-pr-clickup",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "49d8e26487aaf9b91bb9f5cf382257452bbe35fc",
+          "short": "49d8e26",
+          "date": "2026-08-31T14:50:12+03:00",
+          "author": "Gülin Dasdan",
+          "subject": "feat: add PR notification workflow to ClickUp",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "A",
+              "path": ".github/workflows/notify-pr.yml"
+            }
+          ]
+        },
+        {
+          "sha": "649b83a1a44ea39363ce0e31ad70ccc7b4bd6d5f",
+          "short": "649b83a",
+          "date": "2026-08-31T11:40:57+03:00",
+          "author": "nihat-cihanoglu",
+          "subject": "Merge pull request #218 from Navlungo/feature/TECH-19372",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "4f7a09b804f8eac40f826782c7b78c36104d3f06",
+          "short": "4f7a09b",
+          "date": "2026-08-31T11:39:35+03:00",
+          "author": "Nihat Cihanoğlu",
+          "subject": "discont condition changed",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/components/item-summary-form.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/components/refunded-items.tsx"
+            }
+          ]
+        },
+        {
+          "sha": "694a501f5a956591e46588064cd9040996a65fdb",
+          "short": "694a501",
+          "date": "2026-08-28T14:49:25+03:00",
+          "author": "Nihat Cihanoğlu",
+          "subject": "conflict from main",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "9af57079e8def37b1538df4053197f778d2d625d",
+          "short": "9af5707",
+          "date": "2026-08-28T14:28:28+03:00",
+          "author": "Nihat Cihanoğlu",
+          "subject": "feat(TECH-19372): show original price on discounted exchange items",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/api/item-summary-api.ts"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/components/item-summary-form.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/components/refunded-items.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/item-summary.tsx"
+            }
+          ]
+        },
+        {
+          "sha": "a4a3691945f71f171f5aeafe0604e1b20449f1aa",
+          "short": "a4a3691",
+          "date": "2026-08-28T10:52:14+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #210 from Navlungo/release/TECH-19165/embed-pp",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "dd8e645cb13f888ad76b0155f1780930b15a68b0",
+          "short": "dd8e645",
+          "date": "2026-08-28T10:36:15+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #217 from Navlungo/feature/TECH-19165/embed-pp-dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "b133950ae54cae8fd531d4f4b59226c306d9944a",
+          "short": "b133950",
+          "date": "2026-08-28T10:31:25+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "merged rs",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "3aa79bd9da1df034da3ed437378f82b7d07272e4",
+          "short": "3aa79bd",
+          "date": "2026-08-28T10:24:28+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "removed md",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "D",
+              "path": "ISSUES.md"
+            }
+          ]
+        },
+        {
+          "sha": "00cd4f5eaf9ec10f0aed4da7824824ab52c0911f",
+          "short": "00cd4f5",
+          "date": "2026-08-28T09:26:07+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "merged main",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "1a378b231f8bfce920e864b9d7975a955b55eef1",
+          "short": "1a378b2",
+          "date": "2026-08-26T10:02:48Z",
+          "author": "navlungo[bot]",
+          "subject": "Merge pull request #216 from Navlungo/feature/TECH-18427",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "d67e8b93733f46a3b7c9208de86699cbd6f45861",
+          "short": "d67e8b9",
+          "date": "2026-08-26T13:02:26+03:00",
+          "author": "Sami Renkyorgancı",
+          "subject": "Merge pull request #190 from Navlungo/feature/TECH-18427",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "236a11cb648d95d3e1f0e5471c12e3abb569150d",
+          "short": "236a11c",
+          "date": "2026-08-26T11:38:26+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #215 from Navlungo/feature/TECH-19165/embed-pp-dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "f5e05c46512b45deb79756b910b97a4e66686c58",
+          "short": "f5e05c4",
+          "date": "2026-08-26T11:35:20+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "merged rs",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "8aada7300dd171571d2eb619271846b6e105750e",
+          "short": "8aada73",
+          "date": "2026-08-26T11:34:34+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "added resp css",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "client/src/App.css"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/components/item-summary-form.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/components/refunded-items.tsx"
+            }
+          ]
+        },
+        {
+          "sha": "8e8ec50bfdfd24bbd398c7abb1eced43ddc1ea6d",
+          "short": "8e8ec50",
+          "date": "2026-08-25T09:37:45+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #211 from Navlungo/feature/TECH-19165/embed-pp-dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "0ab3384706bcbb54556882dbeb087a9115e0d95e",
+          "short": "0ab3384",
+          "date": "2026-08-25T09:27:26+03:00",
+          "author": "Nihat Cihanoğlu",
+          "subject": "Merge branch 'main' of https://github.com/Navlungo/return-app-portal into feature/TECH-18427",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "536bdf6f8d13bc758332552e4ba39b63a4b5613c",
+          "short": "536bdf6",
+          "date": "2026-08-25T09:23:05+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "merge rs",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "f18a62fae7bd7553f0ef700c2ff9e9284c7034b7",
+          "short": "f18a62f",
+          "date": "2026-08-25T09:22:35+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "error log",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "server/index.js"
+            }
+          ]
+        },
+        {
+          "sha": "842e9822f46ed5d165d92f75fffa04b04608e722",
+          "short": "842e982",
+          "date": "2026-08-25T02:34:43+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "merged rs",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "49549f75cc07c6b08e677bf12206ff99eff8b32a",
+          "short": "49549f7",
+          "date": "2026-08-25T02:29:02+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "refactor",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "A",
+              "path": "ISSUES.md"
+            },
+            {
+              "status": "M",
+              "path": "client/src/App.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/lib/portal-host.ts"
+            },
+            {
+              "status": "M",
+              "path": "docs/embedded-mode.md"
+            },
+            {
+              "status": "M",
+              "path": "server/index.js"
+            },
+            {
+              "status": "M",
+              "path": "server/index.test.js"
+            }
+          ]
+        },
+        {
+          "sha": "98046eebdc49a3930159b698e5dc497d69840d1d",
+          "short": "98046ee",
+          "date": "2026-08-24T14:28:23Z",
+          "author": "navlungo[bot]",
+          "subject": "Merge pull request #214 from Navlungo/hotfix/utils",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "5a230452d70e81bd49dd7c94817eeddedf5dd36b",
+          "short": "5a23045",
+          "date": "2026-08-24T17:28:03+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #213 from Navlungo/hotfix/utils",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "6da425780957d9b49e1eee3753c0b72d8a2fcbb9",
+          "short": "6da4257",
+          "date": "2026-08-24T17:06:46+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "changed portal key",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "client/src/lib/utils.ts"
+            }
+          ]
+        },
+        {
+          "sha": "b3c638356c68147bfc46ad45a01e26a91ea4bef8",
+          "short": "b3c6383",
+          "date": "2026-08-24T13:44:47+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "rs merge",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "e1f7d9285efce88a7881044c722c7ba892448919",
+          "short": "e1f7d92",
+          "date": "2026-08-24T13:44:17+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "re added npm",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": ".gitignore"
+            },
+            {
+              "status": "A",
+              "path": "client/package-lock.json"
+            },
+            {
+              "status": "M",
+              "path": "client/src/App.tsx"
+            },
+            {
+              "status": "M",
+              "path": "docker/app.dockerfile"
+            },
+            {
+              "status": "M",
+              "path": "docker/prod.app.dockerfile"
+            },
+            {
+              "status": "M",
+              "path": "docs/embedded-mode.md"
+            },
+            {
+              "status": "M",
+              "path": "server/dev-shell.js"
+            },
+            {
+              "status": "M",
+              "path": "server/index.js"
+            },
+            {
+              "status": "M",
+              "path": "server/index.test.js"
+            },
+            {
+              "status": "A",
+              "path": "server/yarn.lock"
+            }
+          ]
+        },
+        {
+          "sha": "42d88d57158a4709189510e9353fd4da9c00ea65",
+          "short": "42d88d5",
+          "date": "2026-08-24T10:15:51+03:00",
+          "author": "nihat-cihanoglu",
+          "subject": "Merge pull request #212 from Navlungo/feature/TECH-19400",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "b9a57876dd5d60f68a194aedc67a88dcfe10f371",
+          "short": "b9a5787",
+          "date": "2026-08-24T00:15:24+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "merged dev",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "007825ab45180bdbc3368cf76b2b11ad38cdf975",
+          "short": "007825a",
+          "date": "2026-08-23T17:30:17+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "added embedded version",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": ".gitignore"
+            },
+            {
+              "status": "M",
+              "path": "client/index.html"
+            },
+            {
+              "status": "D",
+              "path": "client/package-lock.json"
+            },
+            {
+              "status": "M",
+              "path": "client/package.json"
+            },
+            {
+              "status": "A",
+              "path": "client/scripts/scope-css.mjs"
+            },
+            {
+              "status": "A",
+              "path": "client/scripts/scope-css.test.mjs"
+            },
+            {
+              "status": "A",
+              "path": "client/scripts/watch-build.mjs"
+            },
+            {
+              "status": "M",
+              "path": "client/src/App.css"
+            },
+            {
+              "status": "M",
+              "path": "client/src/App.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/alert-dialog.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/context-menu.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/dialog.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/drawer.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/dropdown-menu.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/menubar.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/popover.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/select.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/sheet.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/components/ui/tooltip.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/index.css"
+            },
+            {
+              "status": "A",
+              "path": "client/src/lib/portal-host.ts"
+            },
+            {
+              "status": "M",
+              "path": "client/src/lib/types/return.ts"
+            },
+            {
+              "status": "M",
+              "path": "client/src/main.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/return-cargo-selection/components/cargo-carrier-list.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/vite.config.ts"
+            },
+            {
+              "status": "M",
+              "path": "client/yarn.lock"
+            },
+            {
+              "status": "M",
+              "path": "docker/app.dockerfile"
+            },
+            {
+              "status": "M",
+              "path": "docker/prod.app.dockerfile"
+            },
+            {
+              "status": "A",
+              "path": "docs/embedded-mode.md"
+            },
+            {
+              "status": "A",
+              "path": "server/dev-shell.js"
+            },
+            {
+              "status": "M",
+              "path": "server/index.js"
+            },
+            {
+              "status": "A",
+              "path": "server/index.test.js"
+            },
+            {
+              "status": "M",
+              "path": "server/package.json"
+            },
+            {
+              "status": "D",
+              "path": "server/public/index.html"
+            },
+            {
+              "status": "D",
+              "path": "server/public/vite.svg"
+            }
+          ]
+        },
+        {
+          "sha": "406138deef3b523785af8da8167a03861d8f099a",
+          "short": "406138d",
+          "date": "2026-08-21T09:05:08+03:00",
+          "author": "nihat-cihanoglu",
+          "subject": "Merge pull request #209 from Navlungo/feature/TECH-19400",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "9cc5b00a98547f521ab2b96a474c493b6d4a503f",
+          "short": "9cc5b00",
+          "date": "2026-08-20T18:01:25+03:00",
+          "author": "Nihat Cihanoğlu",
+          "subject": "TECH-19451 numaralı bug",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "client/src/i18n/dictionaries/de/itemSummary.json"
+            },
+            {
+              "status": "M",
+              "path": "client/src/i18n/dictionaries/en/itemSummary.json"
+            },
+            {
+              "status": "M",
+              "path": "client/src/i18n/dictionaries/tr/itemSummary.json"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/item-summary/components/payment-summary.tsx"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/return-cargo-selection/components/cargo-carrier-list.tsx"
+            }
+          ]
+        },
+        {
+          "sha": "4bb0c9e72ff6d8b01a0e80b0da25e011b899e861",
+          "short": "4bb0c9e",
+          "date": "2026-08-20T16:16:54+03:00",
+          "author": "Nihat Cihanoğlu",
+          "subject": "translate files changes according to new design",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "client/src/i18n/dictionaries/de/appsReturns.json"
+            },
+            {
+              "status": "M",
+              "path": "client/src/i18n/dictionaries/de/itemSelection.json"
+            },
+            {
+              "status": "M",
+              "path": "client/src/i18n/dictionaries/en/appsReturns.json"
+            },
+            {
+              "status": "M",
+              "path": "client/src/i18n/dictionaries/en/itemSelection.json"
+            },
+            {
+              "status": "M",
+              "path": "client/src/i18n/dictionaries/tr/appsReturns.json"
+            },
+            {
+              "status": "M",
+              "path": "client/src/i18n/dictionaries/tr/itemSelection.json"
+            }
+          ]
+        },
+        {
+          "sha": "c36e589519136e434819ce4ee3a72a31e4db5caa",
+          "short": "c36e589",
+          "date": "2026-08-20T14:13:39+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #208 from Navlungo/feature/exh-lg",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "534f64a67b9607dd1b61db3f8b0f88b516c06e04",
+          "short": "534f64a",
+          "date": "2026-08-19T14:59:41+03:00",
+          "author": "OzanEm",
+          "subject": "Merge pull request #207 from Navlungo/feature/exh-lg",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "4d6c4ae56aee644a54a4212bff3db2af39b128ae",
+          "short": "4d6c4ae",
+          "date": "2026-08-19T14:56:28+03:00",
+          "author": "Ozan Emre SAYILIR",
+          "subject": "added lg to exchange",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "client/src/lib/types/exchange.ts"
+            },
+            {
+              "status": "M",
+              "path": "client/src/pages/apps-returns/sub-components/return-cargo-selection/return-cargo-selection.tsx"
+            }
+          ]
+        },
+        {
+          "sha": "5ee5dd5a1f7bf78699c9bbd00744ae3a8d116ad8",
+          "short": "5ee5dd5",
+          "date": "2026-08-17T12:17:46+03:00",
+          "author": "nihat-cihanoglu",
+          "subject": "Merge pull request #206 from Navlungo/feature/TECH-18427",
+          "isMerge": true,
+          "files": []
+        },
+        {
+          "sha": "651449be64afc8800413d1d9122c81e2b1a60901",
+          "short": "651449b",
+          "date": "2026-08-17T12:16:19+03:00",
+          "author": "Nihat Cihanoğlu",
+          "subject": "fix: accept any Shopify locale prefix on the returns portal",
+          "isMerge": false,
+          "files": [
+            {
+              "status": "M",
+              "path": "client/src/i18n/languages.ts"
+            },
+            {
+              "status": "M",
+              "path": "server/index.js"
+            },
+            {
+              "status": "M",
+              "path": "server/public/index.html"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -1,5 +1,14 @@
 {
   "project": "oms",
-  "configured": false,
-  "syncedAt": "2026-09-03T13:10:16.918Z"
+  "name": "OMS",
+  "description": "Not documented yet. Fill in knowledge/oms/system-overview.md before generating OMS test cases.",
+  "syncedAt": "2026-09-03T13:59:59.955Z",
+  "hotspotWindowDays": 30,
+  "repos": [
+    {
+      "name": "main",
+      "configured": false,
+      "description": ""
+    }
+  ]
 }

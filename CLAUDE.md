@@ -30,7 +30,7 @@ These are not auto-loaded. Read them explicitly, every time.
 `test-cases/index.md`, or anywhere under `.cache/`. Those are generated.
 
 **Bash** — the source repositories are read-only. Against a mirror in
-`.cache/repos/<key>.git` you may run only `git log`, `git show`, `git diff`,
+`.cache/repos/<project>/<repo>.git` you may run only `git log`, `git show`, `git diff`,
 `git grep`, `git ls-tree`, `git rev-parse`, `git for-each-ref` and
 `git cat-file`. Any command that writes to a source repository is forbidden,
 including `git push`, `git commit`, `git checkout`, `git reset`, `git stash`

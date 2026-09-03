@@ -17,7 +17,8 @@ These are not preferences. Violating any of them is a failed task.
    read-only. You never commit, push, branch, stage, stash, checkout, reset,
    rebase, cherry-pick, or write a file into any source repository — including
    the local mirrors.
-2. **Read source code only through the mirrors** in `.cache/repos/<key>.git`.
+2. **Read source code only through the mirrors** in
+   `.cache/repos/<project>/<repo>.git`.
    These are blobless mirror clones with the push URL set to
    `no-push://read-only-mirror`, created by `npm run sync`. Do not clone the
    source repositories anywhere else, and do not look for the user's own working
@@ -93,7 +94,7 @@ qa-test-agent/
 ├── prompts/test-case-generation.md    ← test design methodology — read before generating
 ├── templates/                         ← document skeletons
 ├── scripts/                           ← the four Node scripts
-└── .cache/repos/<key>.git             ← read-only mirrors, git-ignored
+└── .cache/repos/<project>/<repo>.git  ← read-only mirrors, git-ignored
 ```
 
 ---
@@ -105,6 +106,22 @@ qa-test-agent/
 | `rms` | Return Management System | Return and exchange lifecycle for orders from integrated stores. Buyer-facing Return Portal, seller-facing Return Panel. | `oms`, `wms` |
 | `oms` | Order Management System | Order lifecycle. | `wms` |
 | `wms` | Warehouse Management System | Warehouse, stock and physical goods handling. | — |
+
+### A project can span several repositories
+
+`config/projects.json` lists the repositories under each project. RMS has two,
+and a single ticket may touch either or both:
+
+| Repo | Mirror | What lives there |
+| --- | --- | --- |
+| `rms/app` | `.cache/repos/rms/app.git` | NestJS backend and the Next.js seller **Return Panel**. Return lifecycle, return policy and reasons, exchange, cargo and shipping, Shopify store connection, wallet, analytics, WMS integration. |
+| `rms/portal` | `.cache/repos/rms/portal.git` | Buyer-facing **Return Portal**. Vite/React client under `client/`, small Node server under `server/`. |
+
+Before deciding a change is backend-only or frontend-only, check both. Each repo
+has a verified `codeMap` in `config/projects.json` mapping logical areas to real
+directories — read it instead of guessing at paths.
+
+Both repos are developed on `develop`, not `main`.
 
 RMS is documented. OMS and WMS are not yet — their `system-overview.md` files
 are stubs. **Until a project is documented, do not generate test cases for it
@@ -161,20 +178,37 @@ Start from `project-state/<project>/recent-changes.md`, which lists recent
 commits and the files they touched. Then:
 
 ```bash
-MIRROR=.cache/repos/rms.git
+M=.cache/repos/rms/app.git        # or .cache/repos/rms/portal.git
 
-git -C $MIRROR log --oneline -20 main
-git -C $MIRROR log --oneline --since="14 days ago" -- path/to/area
-git -C $MIRROR show <sha> --stat
-git -C $MIRROR show <sha>                      # full diff
-git -C $MIRROR show <sha>:path/to/file         # file at that commit
-git -C $MIRROR diff <old-sha>..<new-sha> -- path/to/area
-git -C $MIRROR grep -n "searchTerm" main -- "*.ts"
-git -C $MIRROR ls-tree -r --name-only main | grep -i return
+git -C $M log --oneline -20 develop
+git -C $M log --oneline --since="14 days ago" develop -- src/core/application/use-cases/return
+git -C $M show <sha> --stat
+git -C $M show <sha>                        # full diff
+git -C $M show <sha>:path/to/file           # file at that commit
+git -C $M diff <old-sha>..<new-sha> -- path/to/area
+git -C $M grep -n "searchTerm" develop -- "*.ts"
+git -C $M ls-tree -r --name-only develop | grep -i return
+```
+
+**`git grep` is slow on these mirrors.** They are blobless clones, so a repo-wide
+grep lazily downloads every file it touches — around a minute on `rms/app`.
+Prefer `ls-tree -r --name-only | grep`, which reads only the tree and returns
+instantly, to locate candidate files first, then `git show` the few you need.
+Use `git grep` only when you must match file *contents*, and always narrow it
+with a pathspec:
+
+```bash
+git -C $M grep -n "term" develop -- "src/core/application/use-cases/return/*"
 ```
 
 Record every commit SHA and file path you actually read — they go into the
 document's Change Context table and the `source_commit` front matter field.
+
+**Quote real error messages instead of describing them.** Both RMS repos keep
+user-facing strings in translation dictionaries, mapped in `codeMap` as
+`user-facing-messages` — `src/i18n/dictionaries/en` in `rms/app` and
+`client/src/i18n` in `rms/portal`. When an expected result involves a message
+the buyer or seller sees, read the actual string and quote it.
 
 ### 4.5 Generate
 
@@ -198,7 +232,7 @@ expected depth. Front matter is mandatory:
 ```yaml
 ---
 project: rms                          # rms | oms | wms | cross-project — must match the folder
-ticket: CU-1234                       # ticket id, or the date-slug used in the filename
+ticket: TECH-19543                       # ticket id, or the date-slug used in the filename
 title: Item-level return reason becomes mandatory
 created: 2026-09-03
 author: qa-test-agent
@@ -327,13 +361,13 @@ Execution is manual today; the agent will take it over later. The history format
 is the same either way, so nothing has to be migrated.
 
 ```bash
-npm run log:run -- --ticket CU-1234 --project rms --env staging --tester buse \
+npm run log:run -- --ticket TECH-19543 --project rms --env staging --tester buse \
   --case RMS-TC-001=pass \
   --case RMS-TC-002=fail:"Duplicate error toast shown" \
   --notes "Retested after hotfix"
 
 # or mark every case in a document at once, then override the exceptions
-npm run log:run -- --ticket CU-1234 --project rms --from test-cases/rms/CU-1234.md --result pass
+npm run log:run -- --ticket TECH-19543 --project rms --from test-cases/rms/TECH-19543.md --result pass
 ```
 
 Results: `pass`, `fail`, `blocked`, `skipped`. This writes
@@ -346,7 +380,8 @@ Results: `pass`, `fail`, `blocked`, `skipped`. This writes
 | Command | What it does |
 | --- | --- |
 | `npm run sync` | Refresh all read-only mirrors and rewrite `project-state/` |
-| `npm run sync -- rms` | Refresh one project only |
+| `npm run sync -- rms` | Refresh every repository of one project |
+| `npm run sync -- rms/portal` | Refresh a single repository |
 | `npm run index` | Validate all test case documents, rebuild `test-cases/index.md` |
 | `npm run check` | Validate only, non-zero exit on error |
 | `npm run export` | Rebuild `exports/test-cases.csv` |

@@ -2,9 +2,13 @@
 
 > **STATUS: PARTIALLY DOCUMENTED.**
 >
-> The hypotheses in section 3 are inferred from the RMS knowledge base and are
-> **not confirmed**. The QA agent must treat them as questions, not facts, until
-> they are verified and moved into section 2.
+> Section 2 holds two dependencies confirmed from RMS source code. Their
+> existence and direction are facts; their failure and edge-case behaviour is
+> not, and is tracked as open questions within that section.
+>
+> Section 3 holds hypotheses inferred from documentation. The QA agent must
+> treat those as questions, not facts, until they are verified and moved into
+> section 2.
 
 This document is the authority on how RMS, OMS and WMS affect each other. Read
 it before reasoning about the impact of any change that crosses a project
@@ -25,16 +29,62 @@ front matter field. That field should be derived from this map.
 
 ## 2. Confirmed Dependencies
 
-_None documented yet._
-
-Fill this table in as each relationship is verified. One row per direction — if
-two projects exchange data both ways, that is two rows.
+Established from source code in `rms/app` on `develop`, 2026-09-03. The
+existence and direction of each is confirmed; the **behavioural details** in the
+last two columns still need a human answer before the related test cases can
+have precise expected results.
 
 | # | From | To | What is exchanged | Trigger | Sync or async | Failure behaviour |
 | --- | --- | --- | --- | --- | --- | --- |
-| | | | | | | |
+| D1 | OMS | RMS | Order/return status updates | An OMS status message arrives on the queue | **Async, queue-based** | _Unknown — see Q-D1_ |
+| D2 | RMS | WMS | Warehouse list is pulled from the WMS provider | Warehouse sync is triggered | Sync HTTP call | _Unknown — see Q-D2_ |
 
-Column guidance:
+### Evidence
+
+**D1 — OMS pushes status to RMS over a queue.** RMS runs a dedicated worker that
+consumes OMS status messages and applies them to returns:
+
+```text
+src/infrastructure/services/queue/oms-status-worker/oms-status-worker.service.ts
+src/infrastructure/services/queue/oms-status-worker/parse-oms-rms-status-message.ts
+src/infrastructure/services/queue/oms-status-worker/oms-status-worker-types.ts
+src/core/application/use-cases/return/apply-oms-status/apply-oms-status.ts
+```
+
+Because this is asynchronous and message-based, the standard concerns in
+section 5 all apply: duplicate delivery, out-of-order delivery, malformed
+messages, and what happens when the worker is down while messages accumulate.
+
+**D2 — RMS integrates with an external WMS provider.** The integration is
+pluggable, with two providers:
+
+```text
+src/core/application/use-cases/wms-integration/
+  connect-parkpalet/
+  disconnect-wms/
+  get-parkpalet-warehouses/
+  sync-parkpalet-warehouses/
+src/core/application/use-cases/warehouse-wms-binding/
+```
+
+The connection is configured with `provider` (`HAMURLABS` or `PARKPALET`),
+`baseUrl`, `apiKey`, `apiSecret`, `companyId` and `orderCodePrefix`. Warehouses
+are pulled from the provider and bound to RMS warehouses through
+`warehouse-wms-binding`.
+
+**This means "WMS" is not a single system from RMS's point of view.** Any WMS
+test case must state which provider it applies to, exactly as RMS test cases
+distinguish Shopify from Custom integrations.
+
+### Open behavioural questions on confirmed dependencies
+
+| # | Question |
+| --- | --- |
+| Q-D1 | What happens when an OMS status message is malformed, duplicated, arrives out of order, or references an unknown return? Is the worker idempotent? |
+| Q-D2 | What happens when the WMS provider is unreachable during a warehouse sync? Are previously synced warehouses kept, and can a return still be created? |
+| Q-D3 | Is `HAMURLABS` in production, or is `PARKPALET` the only live provider? Determines whether both need test coverage. |
+
+### Column guidance
 
 - **Trigger** — the event that causes the exchange, not the schedule.
 - **Sync or async** — whether the caller waits. This decides whether timeout and
@@ -50,12 +100,13 @@ Inferred from the RMS knowledge base. Each one needs to be confirmed or rejected
 
 | # | Hypothesis | Basis | Status |
 | --- | --- | --- | --- |
-| H1 | The RMS sends a signal to the WMS when a return shipment is dispatched, so the warehouse can expect it | RMS documents an `Arrived at Warehouse` return status | Unconfirmed |
-| H2 | The WMS notifies the RMS when a return package physically arrives | The RMS `Arrived at Warehouse` transition must be triggered by something outside the RMS | Unconfirmed |
+| H1 | RMS tells the WMS provider that a return shipment is on its way | RMS documents an `Arrived at Warehouse` return status | Unconfirmed |
+| H2 | The WMS provider notifies RMS when a return package physically arrives | The `Arrived at Warehouse` transition must be triggered by something outside RMS | Unconfirmed |
 | H3 | An accepted return leads to a stock change in the WMS | Returned goods have to go somewhere | Unconfirmed |
-| H4 | An accepted return leads to an order or refund update in the OMS | The RMS documents that "relevant return information is sent back to Shopify" — whether the OMS sits in that path is unknown | Unconfirmed |
-| H5 | Order data reaches the RMS through the OMS rather than directly from Shopify | The RMS documents Shopify as the source of truth for order lookup, which may or may not exclude the OMS | Unconfirmed |
-| H6 | Warehouse definitions used by RMS cargo selection are owned by the WMS | RMS cargo integration selects a destination warehouse country | Unconfirmed |
+| H4 | RMS pushes return outcomes *back* to the OMS | The OMS → RMS direction is confirmed (D1). The reverse direction has no code evidence yet. | Unconfirmed — direction may not exist |
+| H5 | Order data reaches RMS through the OMS rather than directly from Shopify | **Evidence points against this.** RMS has no order-ingest use case for OMS; orders arrive through `store-connection` and `webhooks`. The only OMS inbound path found is status messages. | Likely false — needs a one-line confirmation |
+
+> H6 was confirmed and moved to section 2 as **D2**.
 
 **Until a hypothesis is confirmed, the agent must not write a test case whose
 expected result depends on it.** Raise it as a question instead.
@@ -71,7 +122,7 @@ each. A mismatch here is a defect class of its own.
 | --- | --- | --- | --- | --- |
 | Order | Source of return eligibility, looked up in Shopify | _unknown_ | _unknown_ | Unconfirmed |
 | Order item | Individually selectable unit for return or exchange | _unknown_ | _unknown_ | Unconfirmed |
-| Warehouse | Destination of the return package | _unknown_ | _unknown_ | Unconfirmed |
+| Warehouse | Destination of the return package. Pulled from the WMS provider and bound locally via `warehouse-wms-binding`. | _unknown_ | Owns the definition | Partially confirmed — RMS mirrors the provider's warehouses |
 | Stock | Not documented in the RMS | _unknown_ | _unknown_ | Unconfirmed |
 | Return | First-class entity with its own lifecycle | _unknown_ | _unknown_ | Unconfirmed |
 

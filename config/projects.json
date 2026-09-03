@@ -1,10 +1,12 @@
 {
   "_readme": [
-    "Fill in the 'repo' and 'defaultBranch' fields for each project before running 'npm run sync'.",
-    "'repo' accepts any git URL: https://github.com/<owner>/<name>.git or git@github.com:<owner>/<name>.git",
-    "Projects whose 'repo' is still the placeholder value are skipped by the sync script.",
+    "A project can span several repositories. RMS spans two: the app and the buyer portal.",
+    "Fill in 'url' and 'defaultBranch' for each repo before running 'npm run sync'.",
+    "'url' accepts any git URL: https://github.com/<owner>/<name>.git or git@github.com:<owner>/<name>.git",
+    "Repos whose 'url' is still the placeholder value are skipped by the sync script.",
+    "Mirrors are cloned to .cache/repos/<project key>/<repo name>.git and are read-only.",
     "'dependsOn' drives cross-project regression analysis - it lists projects this one consumes or reacts to.",
-    "'codeMap' is optional but strongly recommended: it tells the agent where to look inside the source repo."
+    "'codeMap' is optional but strongly recommended: it tells the agent where to look inside the repo."
   ],
   "cacheDir": ".cache/repos",
   "historyDepth": 40,
@@ -14,53 +16,102 @@
       "key": "rms",
       "name": "RMS",
       "longName": "Return Management System",
-      "description": "Manages return and exchange processes for orders coming from integrated e-commerce stores (Shopify, Custom). Buyer-facing Return Portal and seller-facing Return Panel.",
-      "repo": "REPLACE_ME_git_url",
-      "defaultBranch": "main",
+      "description": "Manages return and exchange processes for orders coming from integrated e-commerce stores (Shopify, Custom). Split across two repositories: the app hosts the backend and the seller Return Panel, the portal hosts the buyer-facing Return Portal.",
       "knowledgePath": "knowledge/rms",
       "testCasePath": "test-cases/rms",
       "statePath": "project-state/rms",
       "idPrefix": "RMS",
       "dependsOn": ["oms", "wms"],
-      "codeMap": {
-        "_hint": "Optional. Map logical areas to directories in the source repo so the agent can navigate quickly.",
-        "return-portal": "",
-        "return-panel": "",
-        "cargo-integration": "",
-        "shopify-integration": ""
-      }
+      "repos": [
+        {
+          "name": "app",
+          "url": "https://github.com/Navlungo/returns-app.git",
+          "defaultBranch": "develop",
+          "description": "NestJS backend and Next.js seller Return Panel. Owns the return lifecycle, return policy, cargo and shipping, Shopify store connection, wallet, analytics and the WMS integration.",
+          "codeMap": {
+            "_hint": "Verified against develop on 2026-09-03. Clean architecture: use cases under src/core/application/use-cases, Next.js frontend under src/app.",
+            "return-portal-api": "src/core/application/use-cases/return-portal",
+            "return-lifecycle": "src/core/application/use-cases/return",
+            "return-policy": "src/core/application/use-cases/return-policy",
+            "return-reason": "src/core/application/use-cases/return-reason",
+            "exchange": "src/core/application/use-cases/exchange",
+            "exchange-widget": "public/exchange-mvp-widget.js",
+            "cargo-shipping-integration": "src/core/application/use-cases/shipping-integration",
+            "carrier": "src/core/application/use-cases/carrier",
+            "shipping-service": "src/core/application/use-cases/shipping-service",
+            "shopify-store-connection": "src/core/application/use-cases/store-connection",
+            "webhooks": "src/core/application/use-cases/webhooks",
+            "warehouse": "src/core/application/use-cases/warehouse",
+            "warehouse-wms-binding": "src/core/application/use-cases/warehouse-wms-binding",
+            "wms-integration": "src/core/application/use-cases/wms-integration",
+            "wallet": "src/core/application/use-cases/wallet",
+            "analytics": "src/core/application/use-cases/analytics",
+            "user-facing-messages": "src/i18n/dictionaries/en",
+            "panel-pages": "src/app/[locale]",
+            "panel-components": "src/components",
+            "lambda-jobs": "lambda"
+          }
+        },
+        {
+          "name": "portal",
+          "url": "https://github.com/Navlungo/return-app-portal.git",
+          "defaultBranch": "develop",
+          "description": "Buyer-facing Return Portal. Vite/React client plus a small Node server that also supports embedded mode.",
+          "codeMap": {
+            "_hint": "Verified against develop on 2026-09-03. Vite/React client under client/, Node server under server/.",
+            "returns-flow": "client/src/pages/apps-returns",
+            "portal-pages": "client/src/pages",
+            "portal-components": "client/src/components",
+            "state-store": "client/src/store",
+            "contexts": "client/src/contexts",
+            "hooks": "client/src/hooks",
+            "user-facing-messages": "client/src/i18n",
+            "shared-utils": "client/src/lib",
+            "server": "server",
+            "docs": "docs"
+          }
+        }
+      ]
     },
     {
       "key": "oms",
       "name": "OMS",
       "longName": "Order Management System",
       "description": "Not documented yet. Fill in knowledge/oms/system-overview.md before generating OMS test cases.",
-      "repo": "REPLACE_ME_git_url",
-      "defaultBranch": "main",
       "knowledgePath": "knowledge/oms",
       "testCasePath": "test-cases/oms",
       "statePath": "project-state/oms",
       "idPrefix": "OMS",
       "dependsOn": ["wms"],
-      "codeMap": {
-        "_hint": "Optional. Map logical areas to directories in the source repo so the agent can navigate quickly."
-      }
+      "repos": [
+        {
+          "name": "main",
+          "url": "REPLACE_ME_git_url",
+          "defaultBranch": "develop",
+          "description": "",
+          "codeMap": {}
+        }
+      ]
     },
     {
       "key": "wms",
       "name": "WMS",
       "longName": "Warehouse Management System",
       "description": "Not documented yet. Fill in knowledge/wms/system-overview.md before generating WMS test cases.",
-      "repo": "REPLACE_ME_git_url",
-      "defaultBranch": "main",
       "knowledgePath": "knowledge/wms",
       "testCasePath": "test-cases/wms",
       "statePath": "project-state/wms",
       "idPrefix": "WMS",
       "dependsOn": [],
-      "codeMap": {
-        "_hint": "Optional. Map logical areas to directories in the source repo so the agent can navigate quickly."
-      }
+      "repos": [
+        {
+          "name": "main",
+          "url": "REPLACE_ME_git_url",
+          "defaultBranch": "develop",
+          "description": "",
+          "codeMap": {}
+        }
+      ]
     }
   ]
 }

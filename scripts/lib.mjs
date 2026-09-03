@@ -15,8 +15,13 @@ export function loadConfig() {
   return config;
 }
 
-export function isConfigured(project) {
-  return Boolean(project.repo) && project.repo !== REPO_PLACEHOLDER;
+/** A project can span several repositories. This checks one of them. */
+export function isConfigured(repo) {
+  return Boolean(repo.url) && repo.url !== REPO_PLACEHOLDER;
+}
+
+export function configuredRepos(project) {
+  return (project.repos || []).filter(isConfigured);
 }
 
 /**
