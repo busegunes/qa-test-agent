@@ -19,8 +19,16 @@ rest of the base, and delete the row from this document.
 | Part | What it unblocks | Status |
 | --- | --- | --- |
 | [Part 1 — Setup](#part-1--setup) | Reading source code at all | **RMS connected. OMS and WMS repos still needed.** |
-| [Part 2 — Knowledge gaps](#part-2--knowledge-gaps) | OMS and WMS test cases, concrete preconditions | Not started |
-| [Part 3 — Open questions](#part-3--open-questions) | Specific test cases that are currently blocked | 3 answered from code, rest open |
+| [Part 2 — Knowledge gaps](#part-2--knowledge-gaps) | OMS and WMS test cases, concrete preconditions | WMS §5 written. Rest not started. |
+| [Part 3 — Open questions](#part-3--open-questions) | Specific test cases that are currently blocked | **8 of 17 answered.** A1, A2 (partly), A5, A6, B1, B2, B6, C1–C6 open. |
+
+### You owe one document
+
+`HAMURLABS` and `PARKPALET` are both live WMS providers with **different rule
+structures**. You said you would write a document describing them. Until it
+exists, every WMS test case has to name its provider and treat
+provider-specific behaviour as undocumented. Drop it anywhere and the agent will
+file it as `knowledge/wms/providers.md`.
 
 ### RMS is connected
 
@@ -158,12 +166,12 @@ you are testing this week and ignore the rest.
 
 | # | Question | Why it matters |
 | --- | --- | --- |
-| A1 | In one sentence each, what is RMS, OMS and WMS responsible for — and what is explicitly *not* each one's job? | Boundaries decide which project a ticket belongs to. The agent knows RMS well and the other two not at all. |
-| A2 | Which system is the source of truth for: the order, stock levels, warehouse definitions, the return record, and refunds? | Decides which system a test case should assert against. Asserting in the wrong place produces tests that pass while the data is wrong. |
-| A3 | ~~How do the three communicate?~~ **Partly answered from code.** OMS reaches RMS through a **message queue**; RMS reaches the WMS provider over **HTTP**. Is that the whole picture, or are there other channels? | Determines which timeout, retry and duplicate-delivery cases are relevant. |
-| A4 | Are the three deployed independently, or released together? | If independent, deployment-order and backward-compatibility cases are needed for every contract change. |
-| A5 | ~~Does Shopify order data reach RMS through OMS?~~ **Evidence says no** — orders arrive via `store-connection` and `webhooks`, and the only inbound OMS path is status messages. Confirm in one line. | Changes the blast radius of every order-related change. |
-| A6 | Is there a fourth system or shared service involved that is not one of these three? | Prevents test cases with a hole in the middle of the flow. |
+| A1 | **Still open.** In one sentence each, what is RMS, OMS and WMS responsible for — and what is explicitly *not* each one's job? | Boundaries decide which project a ticket belongs to. The "not its job" half is what stops the agent misfiling a ticket. |
+| A2 | **Partly answered.** Refunds are issued by Shopify; warehouse definitions come from the WMS provider. Still open: who owns **the order record** and **stock levels**? | Decides which system a test case should assert against. Asserting in the wrong place produces tests that pass while the data is wrong. |
+| A3 | ~~How do the three communicate?~~ **Answered.** OMS reaches RMS through a **message queue**; RMS reaches the WMS provider over **HTTP**; cargo carriers and Shopify are the other inbound sources. | — |
+| A4 | ~~Deployed independently or together?~~ **Answered: independently.** Recorded in the dependency map — every OMS → RMS contract change now needs deployment-order and backward-compatibility coverage. | — |
+| A5 | **Still open, one line needed.** Evidence says orders arrive from Shopify directly via `store-connection` and `webhooks`, not through OMS. Confirm or correct. | Changes the blast radius of every order-related change. |
+| A6 | **Still open.** Is there a fourth system or shared service that is not one of these three? | Prevents test cases with a hole in the middle of the flow. |
 
 ## B. Cross-Project Dependencies
 
@@ -173,11 +181,12 @@ they behave when things go wrong.
 
 | # | Question | Why it matters |
 | --- | --- | --- |
-| B1 | The OMS status worker consumes queue messages. What happens on a malformed message, a duplicate, one arriving out of order, or one referencing an unknown return? Is it idempotent? | This is a queue consumer, so these are not edge cases — they are guaranteed to happen. Currently the agent cannot write a single expected result for them. |
-| B2 | What happens when the WMS provider is unreachable during a warehouse sync? Are previously synced warehouses kept, and can a return still be created? | Warehouse selection drives cargo selection. If sync fails silently, returns may route to a stale warehouse. |
-| B3 | RMS supports two WMS providers, `HAMURLABS` and `PARKPALET`. Are both live, or is one legacy? | Decides whether every WMS test case needs two variants, the way Shopify and Custom integrations do. |
-| B4 | Does RMS push anything *back* to the OMS when a return is finalised, or is the relationship one-way? | No code evidence for the reverse direction was found. If it exists it is a whole untested integration. |
-| B5 | Does the WMS notify RMS when a return package physically arrives, and is that what drives `Arrived at Warehouse`? | Still unconfirmed. It is the trigger for the most important status transition in the return lifecycle. |
+| B1 | **Still open — highest value in this section.** The OMS status worker consumes queue messages. What happens on a malformed message, a duplicate, one arriving out of order, or one referencing an unknown return? Is it idempotent? | This is a queue consumer, so these are not edge cases — they are guaranteed to happen. The agent cannot write a single expected result for them today. |
+| B2 | **Still open.** What happens when the WMS provider is unreachable during a warehouse sync? Are previously synced warehouses kept, and can a return still be created? | Warehouse selection drives cargo selection. If sync fails silently, returns may route to a stale warehouse. |
+| B3 | ~~Are both WMS providers live?~~ **Answered: both live, and their rule structures differ.** Recorded in `knowledge/wms/system-overview.md` §5. **You owe a document describing the two providers' rules** — that is now the blocker. | Every WMS test case must name its provider until that document exists. |
+| B4 | ~~Does RMS push back to the OMS?~~ **Answered: no, the relationship is one-way.** Hypothesis rejected in the dependency map. | — |
+| B5 | ~~Does the WMS drive `Arrived at Warehouse`?~~ **Answered: no — cargo carrier tracking does.** This removed the WMS from the return-arrival path entirely and corrected the WMS overview. | — |
+| B6 | **New.** The three deploy independently. When the OMS → RMS message contract changes, is there a versioning or compatibility convention, or does it rely on coordinated releases? | Decides whether backward-compatibility cases need a specific expected result or just "both versions must work". |
 
 ## C. RMS Behaviour
 

@@ -1,9 +1,10 @@
 # WMS System Overview
 
-> **STATUS: NOT DOCUMENTED.**
+> **STATUS: MOSTLY UNDOCUMENTED.**
 >
-> This is a stub. The QA agent must not generate WMS test cases from anything
-> other than the ticket text itself until this document is filled in.
+> Section 5 — how RMS connects to the WMS — is confirmed. Everything else is a
+> stub. The QA agent must not generate WMS test cases beyond what section 5 and
+> the ticket text support.
 >
 > Use `knowledge/rms/system-overview.md` as the reference for depth and style,
 > and `templates/system-overview.md` for the section structure.
@@ -48,17 +49,53 @@ This is the most important section for test design. Document:
 
 ---
 
-# 5. Inbound Return Handling
+# 5. How RMS Connects to the WMS
+
+Confirmed from `rms/app` source and from the QA owner, 2026-09-03.
+
+**"WMS" is not one system.** RMS has a pluggable WMS integration supporting two
+providers, and **both are live with different rule structures**:
+
+| Provider | Status |
+| --- | --- |
+| `HAMURLABS` | Live |
+| `PARKPALET` | Live |
+
+A connection is configured with `provider`, `baseUrl`, `apiKey`, `apiSecret`,
+`companyId` and `orderCodePrefix`. RMS pulls the provider's warehouse list and
+binds those warehouses to its own through `warehouse-wms-binding`.
+
+Relevant code in `rms/app`:
+
+```text
+src/core/application/use-cases/wms-integration/
+src/core/application/use-cases/warehouse-wms-binding/
+src/core/application/use-cases/warehouse/
+```
+
+**Every WMS statement in this document must name the provider it applies to.**
+A rule verified against one provider must not be assumed to hold for the other.
+A document describing the two providers' differing rules is expected from the QA
+owner; until it arrives, provider-specific behaviour is undocumented.
+
+---
+
+# 5.1 Inbound Return Handling
 
 _To be documented._
 
-The RMS documents an `Arrived at Warehouse` return status. Document the WMS
-side of that event:
+> **Important correction.** The RMS `Arrived at Warehouse` status is driven by
+> **cargo carrier tracking**, not by the WMS. The WMS is not in that path.
+> Confirmed 2026-09-03. A test case for that status must manipulate or simulate
+> carrier tracking, not WMS state.
 
-- How the warehouse learns that a return shipment is coming
-- How arrival is registered
+What still needs documenting on the WMS side:
+
+- Whether the WMS is told in advance that a return shipment is coming
+- How physical arrival is registered inside the WMS itself
 - What is inspected, and by whom
-- How the accept/reject decision is communicated back
+- Whether and how an accept/reject decision reaches RMS
+- Whether any of the above differs between `HAMURLABS` and `PARKPALET`
 
 ---
 
@@ -91,17 +128,18 @@ whether they mean the same thing in the WMS:
 
 # 8. Known Unknowns
 
-Everything about the WMS is currently an unknown. Specifically:
+Section 5 is now documented. Everything else about the WMS remains unknown:
 
 - Stock model and stock statuses
-- Warehouse configuration and which system owns it
-- How the RMS selects a destination warehouse
-- Return arrival registration flow
+- How the RMS selects a destination warehouse among the bound ones
+- Return arrival registration flow inside the WMS
 - Inspection and grading rules
-- Restocking rules
-- How accept/reject decisions propagate back to the RMS
+- Restocking rules — whether accepted returns re-enter sellable stock
+- Whether and how accept/reject decisions propagate back to the RMS
 - Multi-warehouse and cross-border behaviour
-- Failure and retry behaviour between WMS and the other systems
+- What happens when the WMS provider is unreachable during a warehouse sync,
+  and whether previously synced warehouses are kept
+- **Every rule difference between `HAMURLABS` and `PARKPALET`**
 
 ---
 
@@ -110,5 +148,10 @@ Everything about the WMS is currently an unknown. Specifically:
 1. Do not assume the WMS behaves like the RMS.
 2. The RMS knowledge base describes warehouses from the RMS point of view only.
    Do not treat that as WMS documentation.
-3. Until this document is filled in, treat every WMS behaviour as undocumented
-   and raise it as a question rather than an assumption.
+3. **Always name the provider.** `HAMURLABS` and `PARKPALET` are both live and
+   their rules differ. A test case that says "the WMS" without saying which one
+   is not executable.
+4. Do not route `Arrived at Warehouse` test cases through the WMS. That status
+   comes from cargo carrier tracking.
+5. Outside section 5, treat every WMS behaviour as undocumented and raise it as
+   a question rather than an assumption.

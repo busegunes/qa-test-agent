@@ -39,6 +39,34 @@ have precise expected results.
 | D1 | OMS | RMS | Order/return status updates | An OMS status message arrives on the queue | **Async, queue-based** | _Unknown — see Q-D1_ |
 | D2 | RMS | WMS | Warehouse list is pulled from the WMS provider | Warehouse sync is triggered | Sync HTTP call | _Unknown — see Q-D2_ |
 
+**The OMS relationship is one-way.** RMS does not push return outcomes back to
+the OMS. Confirmed 2026-09-03. Do not write a test case that asserts an OMS-side
+effect of a finalised return.
+
+**The three systems deploy independently.** Confirmed 2026-09-03. Every change
+to the OMS → RMS message contract therefore needs deployment-order and
+backward-compatibility coverage: either side can be live at the old version
+while the other is at the new one.
+
+## 2.1 External Systems That Drive Project State
+
+Not one of the three projects, but they change project state and must appear in
+test case preconditions and expected results.
+
+| # | System | Direction | What it drives | Confirmed |
+| --- | --- | --- | --- | --- |
+| E1 | Cargo carrier | Carrier → RMS | **Shipment tracking status drives the `Arrived at Warehouse` return status.** The WMS is *not* in this path. | 2026-09-03 |
+| E2 | Shopify | RMS → Shopify | **Refunds are issued by Shopify.** RMS only triggers them. | 2026-09-03 |
+| E3 | Shopify | Shopify → RMS | Order data and ownership verification, via `store-connection` and `webhooks`. | From code |
+
+E1 is the most commonly misunderstood one. A returned package arriving at the
+warehouse is reported by the **carrier's tracking**, not by the warehouse
+system. A test case for `Arrived at Warehouse` must therefore manipulate or
+simulate carrier tracking, not WMS state.
+
+E2 means a refund assertion belongs in Shopify. Asserting only in RMS proves the
+trigger fired, not that the buyer got their money.
+
 ### Evidence
 
 **D1 — OMS pushes status to RMS over a queue.** RMS runs a dedicated worker that
@@ -72,9 +100,15 @@ The connection is configured with `provider` (`HAMURLABS` or `PARKPALET`),
 are pulled from the provider and bound to RMS warehouses through
 `warehouse-wms-binding`.
 
-**This means "WMS" is not a single system from RMS's point of view.** Any WMS
-test case must state which provider it applies to, exactly as RMS test cases
-distinguish Shopify from Custom integrations.
+**"WMS" is not a single system from RMS's point of view.** Both `HAMURLABS` and
+`PARKPALET` are live, and **their rule structures differ** (confirmed
+2026-09-03). Any WMS test case must state which provider it applies to, exactly
+as RMS test cases distinguish Shopify from Custom integrations. Never assume a
+rule verified against one provider holds for the other.
+
+A document describing the two providers' rules is expected from the QA owner.
+Until it arrives, provider-specific behaviour is undocumented and must be raised
+as a question rather than assumed.
 
 ### Open behavioural questions on confirmed dependencies
 
@@ -82,7 +116,8 @@ distinguish Shopify from Custom integrations.
 | --- | --- |
 | Q-D1 | What happens when an OMS status message is malformed, duplicated, arrives out of order, or references an unknown return? Is the worker idempotent? |
 | Q-D2 | What happens when the WMS provider is unreachable during a warehouse sync? Are previously synced warehouses kept, and can a return still be created? |
-| Q-D3 | Is `HAMURLABS` in production, or is `PARKPALET` the only live provider? Determines whether both need test coverage. |
+| Q-D3 | ~~Is `HAMURLABS` in production?~~ **Answered: both are live and their rule structures differ.** What remains is the provider rule document, which is owed by the QA owner. |
+| Q-D4 | The three systems deploy independently. When the OMS → RMS message contract changes, is there a versioning or compatibility convention, or does it rely on coordinated releases? |
 
 ### Column guidance
 
@@ -100,13 +135,17 @@ Inferred from the RMS knowledge base. Each one needs to be confirmed or rejected
 
 | # | Hypothesis | Basis | Status |
 | --- | --- | --- | --- |
-| H1 | RMS tells the WMS provider that a return shipment is on its way | RMS documents an `Arrived at Warehouse` return status | Unconfirmed |
-| H2 | The WMS provider notifies RMS when a return package physically arrives | The `Arrived at Warehouse` transition must be triggered by something outside RMS | Unconfirmed |
-| H3 | An accepted return leads to a stock change in the WMS | Returned goods have to go somewhere | Unconfirmed |
-| H4 | RMS pushes return outcomes *back* to the OMS | The OMS → RMS direction is confirmed (D1). The reverse direction has no code evidence yet. | Unconfirmed — direction may not exist |
+| H1 | RMS tells the WMS provider that a return shipment is on its way | RMS binds warehouses to a WMS provider (D2), so it may also announce inbound shipments | Unconfirmed |
+| H3 | An accepted return leads to a stock change in the WMS | Returned goods have to go somewhere, and D2 shows a live WMS connection | Unconfirmed |
 | H5 | Order data reaches RMS through the OMS rather than directly from Shopify | **Evidence points against this.** RMS has no order-ingest use case for OMS; orders arrive through `store-connection` and `webhooks`. The only OMS inbound path found is status messages. | Likely false — needs a one-line confirmation |
 
-> H6 was confirmed and moved to section 2 as **D2**.
+### Rejected
+
+| # | Hypothesis | Outcome |
+| --- | --- | --- |
+| H2 | The WMS notifies RMS when a return package physically arrives | **Rejected 2026-09-03.** `Arrived at Warehouse` is driven by **cargo carrier tracking status** — see E1. The WMS is not in this path. |
+| H4 | RMS pushes return outcomes back to the OMS | **Rejected 2026-09-03.** The OMS relationship is one-way. |
+| H6 | Warehouse definitions used by RMS are owned by the WMS | **Confirmed** and promoted to **D2**. |
 
 **Until a hypothesis is confirmed, the agent must not write a test case whose
 expected result depends on it.** Raise it as a question instead.
@@ -124,7 +163,8 @@ each. A mismatch here is a defect class of its own.
 | Order item | Individually selectable unit for return or exchange | _unknown_ | _unknown_ | Unconfirmed |
 | Warehouse | Destination of the return package. Pulled from the WMS provider and bound locally via `warehouse-wms-binding`. | _unknown_ | Owns the definition | Partially confirmed — RMS mirrors the provider's warehouses |
 | Stock | Not documented in the RMS | _unknown_ | _unknown_ | Unconfirmed |
-| Return | First-class entity with its own lifecycle | _unknown_ | _unknown_ | Unconfirmed |
+| Return | First-class entity with its own lifecycle | Sends status updates in (D1) | _unknown_ | Unconfirmed |
+| Refund | Triggered by RMS | Not involved | Not involved | **Issued by Shopify** — assert there, not in RMS |
 
 ---
 

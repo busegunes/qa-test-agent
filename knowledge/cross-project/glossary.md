@@ -71,4 +71,11 @@ Add a row as soon as a term appears in a ticket without a shared definition.
 | --- | --- | --- |
 | Stock | WMS | What are the stock statuses, and which system owns them? |
 | Fulfilment | OMS | Which system performs it, and how does it relate to return eligibility? |
-| Refund | OMS / RMS | Which system issues it, and when? |
+
+### Recently Defined
+
+| Term | Definition | Source |
+| --- | --- | --- |
+| Refund | Issued by **Shopify**. RMS triggers it but does not perform it, so a refund assertion belongs in Shopify. | Confirmed 2026-09-03 |
+| WMS Provider | The external warehouse system RMS connects to. Two are live — `HAMURLABS` and `PARKPALET` — and **their rule structures differ**. Every WMS statement must name the provider. | Confirmed 2026-09-03 |
+| Arrived at Warehouse | Return status driven by **cargo carrier tracking**, not by the WMS. | Confirmed 2026-09-03 |
