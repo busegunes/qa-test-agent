@@ -71,4 +71,6 @@ A test case task is complete when:
 - `npm run index` passes with no validation errors
 - `npm run export` has been run
 - Open questions are listed in the document *and* surfaced in your reply
+- Any question that blocks the document leaving `draft` is added to
+  `WAITING-ON-YOU.md`
 - Your reply names the commits and knowledge documents you actually used

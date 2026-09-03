@@ -53,6 +53,7 @@ Four layers, each with one job.
 qa-test-agent/
 ├── AGENTS.md                      ← you are here
 ├── CLAUDE.md                      ← Claude Code entry point, imports this file
+├── WAITING-ON-YOU.md              ← everything blocked on the user: setup, gaps, questions
 ├── config/projects.json           ← the three projects: repo URL, branch, dependencies
 │
 ├── knowledge/
@@ -356,15 +357,24 @@ No dependencies to install. Node 18+ and git are all that is required.
 
 ---
 
-## 10. Setup Checklist
+## 10. Things Blocked on the User
 
-Before the agent is fully useful:
+`WAITING-ON-YOU.md` at the repository root is the single place where everything
+that needs a human is tracked: setup steps, undocumented knowledge, and open
+questions.
 
-- [ ] Fill in `repo` and `defaultBranch` for each project in `config/projects.json`
-- [ ] Run `npm run sync` and confirm all three mirrors clone
-- [ ] Fill in `knowledge/oms/system-overview.md`
-- [ ] Fill in `knowledge/wms/system-overview.md`
-- [ ] Complete `knowledge/cross-project/dependency-map.md`
-- [ ] Fill in `knowledge/testing/environments.md` and `test-data.md`
-- [ ] Optionally populate `codeMap` in `config/projects.json` so the agent knows
-      which directories matter in each repo
+Read it when you need to know what is still missing — it explains which parts of
+the knowledge base are incomplete and therefore which behaviour you must not
+assume.
+
+Add to it whenever you hit a blocker:
+
+- A question from a test case document that must be answered before the document
+  can leave `draft`
+- A knowledge gap you had to work around
+- A dependency hypothesis you could not confirm from the code
+
+Put the question in the right section, say what it blocks, and keep it to one
+row. Do not duplicate the full question text from the test case document —
+reference the document instead. Remove the row once the answer has been written
+into `knowledge/`.

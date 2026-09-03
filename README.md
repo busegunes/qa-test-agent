@@ -18,6 +18,12 @@ with the push URL disabled.
 
 Requires Node 18+ and git. There is nothing to install.
 
+**Follow [`WAITING-ON-YOU.md`](WAITING-ON-YOU.md)** — it walks through setup
+step by step, then lists the knowledge gaps and open questions that are still
+blocking the agent.
+
+The short version:
+
 1. Open `config/projects.json` and set `repo` and `defaultBranch` for RMS, OMS
    and WMS.
 2. Pull the source history:
@@ -25,9 +31,6 @@ Requires Node 18+ and git. There is nothing to install.
    ```bash
    npm run sync
    ```
-
-3. Work through the checklist at the bottom of `AGENTS.md` — mainly filling in
-   the OMS and WMS knowledge stubs and the testing environment documents.
 
 ---
 
@@ -67,6 +70,8 @@ Four layers, each with one job.
 `AGENTS.md` is the agent's operating contract: the rules, the workflow, and the
 document format. `CLAUDE.md` imports it and adds Claude Code specifics.
 `prompts/test-case-generation.md` holds the test design methodology.
+`WAITING-ON-YOU.md` is the human side of that split — setup, knowledge gaps and
+open questions, maintained by the agent as it hits blockers.
 
 ---
 
